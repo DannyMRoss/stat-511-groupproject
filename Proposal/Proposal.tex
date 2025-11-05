@@ -1,16 +1,36 @@
-\documentclass[11pt]{article} 
-\usepackage{geometry}
-\geometry{letterpaper} 
+\documentclass[12pt]{article} 
+\usepackage[margin=1in]{geometry}
 
 	
 \usepackage{amssymb}
 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Chengyuan, Daniel, and Junjie}
+\fancyhead[L]{Group Project Proposal}
+\fancyfoot[C]{\thepage}
 
-\title{Group Project Proposal}
-\author{Chengyuan, Daniel, and Junjie}
+\setlength{\headheight}{15pt}
+
+\newcommand{\teh}{treatment effect heterogeneity}
 
 \begin{document}
-\maketitle
 
+\section{Problem Description and Modeling Objective}
+%Provide a clear statement of the problem being investigated in the paper. Clearly state the specific objective of the statistical modeling.
+
+In the paper ``Estimating treatment effect heterogeneity in randomized program evaluation,''\cite{imai_estimating_2013} the authors are concerned with ``treatment effect heterogeneity'' which they define as ``the degree to which different treatments have differential causal effects on each unit.'' Estimation of \teh\ is also important when (1) selecting the most effective treatment among a large number of available treatments, (2) designing optimal treatments for sub-groups of units, (3) testing the existence of \teh, and (4) generalizing causal effect estimates from a sample to a target population.
+
+
+\section{Data Description and Availability of Dataset}
+
+The \texttt{R} package \texttt{FindIt} includes the data analyzed in the paper.\cite{FindIt2012}
+
+\section{Model and Methods Description}
+
+
+\bibliographystyle{plain}
+\bibliography{../bibliography}
 
 \end{document}  
