@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 NOV 2025 11:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 NOV 2025 12:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -138,14 +138,6 @@ LaTeX Font Info:    ... okay on input line 17.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-
-Overfull \hbox (4.04355pt too wide) in paragraph at lines 31--35
-\OT1/cmr/m/n/10.95 The \OT1/cmtt/m/n/10.95 R \OT1/cmr/m/n/10.95 pack-age \OT1/c
-mtt/m/n/10.95 FindIt \OT1/cmr/m/n/10.95 in-cludes the data an-a-lyzed in the pa
-per.[[]] In-clud-ing the dataset \OT1/cmtt/m/n/10.95 GerberGreen\OT1/cmr/m/n/10
-.95 ,
- []
-
 LaTeX Font Info:    Trying to load font information for U+msa on input line 43.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -171,7 +163,7 @@ L3 programming layer <2025-01-18>
 Here is how much of TeX's memory you used:
  1956 strings out of 473190
  30553 string characters out of 5715801
- 427185 words of memory out of 5000000
+ 428185 words of memory out of 5000000
  25238 multiletter control sequences out of 15000+600000
  564912 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -184,7 +176,7 @@ sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
 /local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
 local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
 ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Proposal.pdf (2 pages, 104960 bytes).
+Output written on Proposal.pdf (2 pages, 105341 bytes).
 PDF statistics:
  51 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream
