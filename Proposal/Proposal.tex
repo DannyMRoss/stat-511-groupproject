@@ -1,4 +1,4 @@
-\documentclass[12pt]{article} 
+\documentclass[11pt]{article} 
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amssymb}
@@ -12,6 +12,7 @@
 \setlength{\headheight}{15pt}
 
 \newcommand{\teh}{treatment effect heterogeneity}
+\newcommand{\hte}{heterogeneous treatment effects}
 
 \begin{document}
 
@@ -19,6 +20,8 @@
 %Provide a clear statement of the problem being investigated in the paper. Clearly state the specific objective of the statistical modeling.
 
 In the paper ``Estimating treatment effect heterogeneity in randomized program evaluation,''\cite{imai_estimating_2013} the authors are concerned with ``treatment effect heterogeneity'' which they define as ``the degree to which different treatments have differential causal effects on each unit.'' Estimation of \teh\ is also important when (1) selecting the most effective treatment among a large number of available treatments, (2) designing optimal treatments for sub-groups of units, (3) testing the existence of \teh, and (4) generalizing causal effect estimates from a sample to a target population.
+
+The 
 
 
 \section{Data Description and Availability of Dataset}
@@ -29,6 +32,12 @@ The \texttt{R} package \texttt{FindIt} includes the data analyzed in the paper.\
 
 \section{Model and Methods Description}
 %Clearly describe the proposed model in the analysis. Outline the statistical estimation methods.
+
+In order to overcome the methodological challenges of (1) extracting useful information from sparse randomized evaluation study data, (2) identifying sub-groups for whom a treatment is beneficial, and (3) generalizing the results of an experiment to a target population, the author's formulate the estimation of heterogeneous treatment effects as a variable selection problem. Specifically, the paper develops a Squared Loss Support Vector Machine (L2-SVM) with separate LASSO constraints over the pre-treatment and causal heterogeneity parameters, such that the causal heterogeneity variables of interest are separated from the rest of the variables. 
+
+The proposed model is grounded within the potential outcomes framework for causal inference. In this framework, the causal effect of treatment $t$ for unit $i$ is defined as $Y_i(t) - Y_i(0)$, where $Y_i$ is the potential outcome for unit $i$ under treatment or control. Thus, by leveraging the fact that the L2-SVM is an optimal classifier, the proposed model can estimate \hte\ by predicting the potential outcomes $Y_i(t)$ directly from the fitted model and estimate the conditional treatment effect as the difference between the predicted outcome under treatment status $t$ and under the control condition.
+
+To fit the proposed model the author's use an estimation algorithm based on a generalized cross-validation (GCV) statistic. Because of the structure of the proposed model, the SVM becomes a least squares problem on a subset of the data, therefore the L2-SVM is fitted through a series of iterated LASSO fits. Accordingly, the author's employ an efficient coordinate descent algorithm for the LASSO fits. 
 
 
 % Bibliography ----------------------
