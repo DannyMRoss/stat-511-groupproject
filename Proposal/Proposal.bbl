@@ -8,8 +8,7 @@ Kosuke Imai and Marc Ratkovic.
 
 \bibitem{FindIt2012}
 Marc Ratkovic and Kosuke Imai.
-\newblock {\em FindIt: R Package for Finding Heterogeneous Treatment Effects},
-  2012.
+\newblock Findit: R package for finding heterogeneous treatment effects, 2012.
 \newblock Available at Comprehensive R Archive Network (CRAN).
 
 \end{thebibliography}
