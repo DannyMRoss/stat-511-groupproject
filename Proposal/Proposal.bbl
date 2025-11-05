@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{imai_estimating_2013}
+Kosuke Imai and Marc Ratkovic.
+\newblock Estimating treatment effect heterogeneity in randomized program
+  evaluation.
+\newblock {\em The Annals of Applied Statistics}, 7(1), March 2013.
+
+\bibitem{FindIt2012}
+Marc Ratkovic and Kosuke Imai.
+\newblock {\em FindIt: R Package for Finding Heterogeneous Treatment Effects},
+  2012.
+\newblock Available at Comprehensive R Archive Network (CRAN).
+
+\end{thebibliography}
