@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  8 NOV 2025 10:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  8 NOV 2025 16:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -101,30 +101,56 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthR=\skip64
 \@temptokenb=\toks20
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/threeparttable/threeparttable.sty
-Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box52
-) (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen163
+\Gin@req@width=\dimen164
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count277
+\float@exts=\toks21
+\float@box=\box52
+\@float@everytoks=\toks22
+\@floatcapt=\box53
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count277
-\l__pdf_internal_box=\box53
-) (./Report.aux)
+\l__color_backend_stack_int=\count278
+\l__pdf_internal_box=\box54
+)
+(./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -160,40 +186,103 @@ LaTeX Font Info:    ... okay on input line 19.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+(/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count279
+\scratchdimen=\dimen165
+\scratchbox=\box55
+\nofMPsegments=\count280
+\nofMParguments=\count281
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count282
+\MPscratchDim=\dimen166
+\MPnumerator=\count283
+\makeMPintoPDFobject=\count284
+\everyMPtoPDFconversion=\toks24
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 (./tbls/GerberGreentbl.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 18.
+
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
+
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (8.55394pt too wide) in paragraph at lines 5--18
- [][] 
- []
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 )
+<figs/GerberGreenTreatments.png, id=1, 6524.375pt x 6524.375pt>
+File: figs/GerberGreenTreatments.png Graphic file (type png)
+<use figs/GerberGreenTreatments.png>
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 60.
+
+(pdftex.def)             Requested size: 422.77664pt x 422.70552pt.
+
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-(./Report.bbl)
+<figs/GerberGreenControls.png, id=12, 6524.375pt x 6524.375pt>
+File: figs/GerberGreenControls.png Graphic file (type png)
+<use figs/GerberGreenControls.png>
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 67.
+(pdftex.def)             Requested size: 422.77664pt x 422.70552pt.
 
-[2] (./Report.aux)
+(./tbls/GerberGreenTreatmentInteraction.tex
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./tbls/GerberGreenControlInteraction.tex
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+)
+
+[2 <./figs/GerberGreenTreatments.png>]
+
+[3 <./figs/GerberGreenControls.png>]
+
+LaTeX Warning: Text page 4 contains only floats.
+
+
+Overfull \vbox (4.01053pt too high) has occurred while \output is active []
+
+
+
+[4] (./tbls/LaLondetbl.tex
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+)
+
+[5] (./Report.bbl)
+
+[6] (./Report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2108 strings out of 473190
- 33295 string characters out of 5715801
- 435235 words of memory out of 5000000
- 25378 multiletter control sequences out of 15000+600000
- 564912 words of font info for 59 fonts, out of 8000000 for 9000
+ 2955 strings out of 473190
+ 46333 string characters out of 5715801
+ 508512 words of memory out of 5000000
+ 26185 multiletter control sequences out of 15000+600000
+ 566162 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,12n,65p,408b,321s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -201,13 +290,15 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
-local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Report.pdf (2 pages, 105616 bytes).
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/t
+exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Report.pdf (6 pages, 1241162 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 45 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
