@@ -30,28 +30,50 @@ two.way.bp <- function(
     cex.axis = 0.5,
     cex.text = 0.75,
     cex.legend = 0.75,
+    yat = seq(0,7000,1000),
     legend = FALSE
 ){
   tab <- t(table(df[[x]], df[[y]]))
   prop <- prop.table(tab, margin = 2)
   label = paste0(round(as.vector(prop)*100, 1), "%")
-  ymax <- max(as.vector(tab) * yadj)
+  yadd <- max(yat) * yadj
   bp <- barplot(
     tab, 
     beside = TRUE,
     col = cols,
     main = x.desc,
     cex.main = cex.main,
-    ylim = c(0,max(tab) * (1+yadj*2)),
-    xaxt = 'n',
-    yaxt = 'n'
-  )
-  axis(1, at = colMeans(bp), labels = x.levels, line = -1, tick = FALSE, cex.axis = cex.axis)
+    ylim = c(0,max(yat)*(1+3*yadj)),
+    yaxt = 'n',
+    xaxt = 'n'
+    )
+  axis(
+    1, 
+    at = colMeans(bp), 
+    labels = x.levels, 
+    line = 0, 
+    tick = FALSE, 
+    cex.axis = cex.axis
+    )
+  axis(
+    2,
+    at = yat,
+    line = 0,
+    labels = yat,
+    tick = F,
+    cex.axis = 0.5
+    )
   if (legend){
-    legend("topright", title = y, legend = y.levels, fill = cols,
-           bty = 'n', cex = cex.legend)
+    legend(
+      "topright",
+      title = y,
+      legend = y.levels,
+      fill = cols,
+      bty = 'n',
+      cex = cex.legend
+      )
   }
-  text(as.vector(bp), as.vector(tab) + ymax, labels = label, cex = cex.text)
+  text(as.vector(bp), as.vector(tab) + yadd, labels = label, cex = cex.text)
 }
 
 # GerberGreen ----
@@ -122,7 +144,7 @@ k <- kbl(
   label = "GerberGreenControlInteraction") %>% 
   kable_styling(
     latex_options = c("scale_down", "hold_position"),
-    font_size = 6
+    font_size = 8
   )
 
 save_kable(k, file = "Report/tbls/GerberGreenControlInteraction.tex")
@@ -137,12 +159,16 @@ GerberGreenTreatments <- function(){
     height = 6.5,
     units = "in",
     res = 1000
-  )
-  par(mfrow = c(2, 2), mar = c(1,1,1,1))
+    )
+  par(
+    mfrow = c(2, 2),
+    mar = c(2,2,1,1),
+    mgp = c(3, .3, 0)
+    )
   two.way.bp(
     GerberGreen,
     x.desc = "Visit"
-  )
+    )
   two.way.bp(
     GerberGreen,
     x = "phnscrpt",
@@ -151,20 +177,20 @@ GerberGreenTreatments <- function(){
     cex.text = .25,
     cex.axis = .25,
     legend = TRUE
-  )
+    )
   two.way.bp(
     GerberGreen,
     x = "mailings",
     x.desc = "Mailings",
     x.levels = c(0,1,2,3),
     cex.text = .5
-  )
+    )
   two.way.bp(
     GerberGreen,
     x = "appeal",
     x.desc = "Appeal", 
     x.levels = appeal.labels,
-  )
+    )
   dev.off()
 }
 
@@ -178,34 +204,38 @@ GerberGreenControls <- function(){
     height = 6.5,
     units = "in",
     res = 1000
-  )
-  par(mfrow = c(2, 2), mar = c(1,1,1,1))
+    )
+  par(
+    mfrow = c(2, 2),
+    mar = c(2,2,1,1),
+    mgp = c(3, .3, 0)
+    )
   two.way.bp(
     dt,
     x = "age_g",
     x.desc = "Age",
     x.levels = dt[,levels(age_g)],
-    cex.text = 0.4,
-  )
+    cex.text = 0.4
+    )
   two.way.bp(
     GerberGreen,
     x = "majorpty",
     x.desc = "Major Party", 
-    x.levels = c("0=Not Democratic or Republican", "1=Democratic or Republican")
-  )
+    x.levels = c("0=Not Democratic or Republican", "1=Democratic or Republican"),
+    legend = TRUE
+    )
   two.way.bp(
     GerberGreen,
     x = "vote96.1",
     x.desc = "Voted in 1996",
     x.levels = c("0=No", "1=Yes")
-  )
+    )
   two.way.bp(
     GerberGreen,
     x = "vote96.0",
     x.desc = "Abstained in 1996",
-    x.levels = c("0=No", "1=Yes"),
-    legend = TRUE
-  )
+    x.levels = c("0=No", "1=Yes")
+    )
   dev.off()
 }
 
