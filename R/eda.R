@@ -162,8 +162,8 @@ GerberGreenTreatments <- function(){
     )
   par(
     mfrow = c(2, 2),
-    mar = c(2,2,1,1),
-    mgp = c(3, .3, 0)
+    mar = c(2, 2, 1, 1),
+    mgp = c(3, 0, 0)
     )
   two.way.bp(
     GerberGreen,
@@ -207,8 +207,8 @@ GerberGreenControls <- function(){
     )
   par(
     mfrow = c(2, 2),
-    mar = c(2,2,1,1),
-    mgp = c(3, .3, 0)
+    mar = c(2, 2, 1, 1),
+    mgp = c(3, 0, 0)
     )
   two.way.bp(
     dt,
