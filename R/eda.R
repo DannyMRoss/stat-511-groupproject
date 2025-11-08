@@ -2,18 +2,34 @@
 
 library(FindIt)
 library(kableExtra)
+library(scales)
 
 # GerberGreen
+tbl.prev <- function(df, n = 3){
+  tblh <- head(df, n)
+  tblt <- tail(df, n)
+  vdots_row <- as.data.frame(matrix("\\vdots", nrow = 1, ncol = ncol(tbl)))
+  names(vdots_row) <- names(tbl)
+  tbl <- rbind(tblh, vdots_row, tblt)
+  row.names(tbl)[n+1] <- ""
+  return(tbl)
+}
+
+tbl <- tbl.prev(GerberGreen)
+
+
 k <- kbl(
-  head(GerberGreen),
+  tbl,
+  escape = FALSE,
   format = "latex",
   booktabs = TRUE,
   align = "c",
   position = 'h',
-  linesep = 0,
+  linesep = '',
   caption = "1998 New Haven Get-Out-the-Vote",
-  label = "GerberGreen"
+  label = "GerberGreen",
 )
+
 save_kable(k, file = "Report/tbls/GerberGreentbl.tex")
 
 # LaLonde
