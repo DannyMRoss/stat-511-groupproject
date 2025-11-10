@@ -136,8 +136,27 @@ Accordingly, the authors' employ an efficient coordinate descent algorithm for t
 \subsection{Model}
 
 For modeling, the authors transform the binary outcome to $Y_i^* = 2Y_i - 1 \in \{\pm1\}$ and then relate the estimated binary outcome $\hat{Y_i} \in \{\pm1\}$ to the estimated latent variable $\hat{W_i} \in \mathbb{R}$, where \[\hat{Y_i} = \operatorname{sgn}(\hat{W_i})\quad\text{and}\quad\hat{W_i} = \hat{\mu} + \hat{\beta}^{\top}Z_i + \hat{\gamma}^{\top}V_i,\] here $Z_i$ is an $L_Z$ dimensional vector of treatment effect heterogeneity variables and $V_i$ is an $L_V$ dimensional vector containing the remaining control covariates.
+Thus, the causal heterogeneity variables of interest, $Z_i$, are separated from the rest of the variables.
 
-In order to estimate the parameters $(\beta, \gamma)$ the authors adapt a support vector machine (SVM) classifier and place separate LASSO constraints over each set of coefficients. Specifically, the estimates are given by the objective function \[(\hat{\beta}, \hat{\gamma}) = \underset{(\beta, \gamma)}{\text{arg min}} \sum_{i=1}^{n} w_i \cdot |1-Y_i^* \cdot(\mu + \beta^{\top}Z_i + \gamma^{\top}V_i)|^2_{+} + \lambda_Z \sum_{j=1}^{L_Z} |\beta_j| + \lambda_V \sum_{j=1}^{L_V}|\gamma_j|,\] where $\lambda_Z$ and $\lambda_V$ are pre-determined separate LASSO penalty parameters and $w_i$ is an optional sampling weight for generalizing results from a sample to a target population. Here, the authors formulate the SVM as a penalized squared hinge-loss objective function (L2-SVM) where the hinge-loss is defined as $|x|_+ \equiv \max(x,0)$. 
+In order to estimate the parameters $(\beta, \gamma)$ the authors adapt a support vector machine (SVM) classifier and place separate LASSO constraints over each set of coefficients. 
+Specifically, the estimates are given by the objective function \[(\hat{\beta}, \hat{\gamma}) = \underset{(\beta, \gamma)}{\text{arg min}} \sum_{i=1}^{n} w_i \cdot |1-Y_i^* \cdot(\mu + \beta^{\top}Z_i + \gamma^{\top}V_i)|^2_{+} + \lambda_Z \sum_{j=1}^{L_Z} |\beta_j| + \lambda_V \sum_{j=1}^{L_V}|\gamma_j|,\] where $\lambda_Z$ and $\lambda_V$ are pre-determined separate LASSO penalty parameters and $w_i$ is an optional sampling weight for generalizing results from a sample to a target population.
+Here, the authors formulate the SVM as a penalized squared hinge-loss objective function (L2-SVM) where the hinge-loss is defined as $|x|_+ \equiv \max(x,0)$. 
+
+\subsection{Estimating heterogeneous treatment effects}
+
+By leveraging the fact that the L2-SVM is an optimal classifier, the proposed model can estimate \hte\ by predicting the potential outcomes $Y_i(t)$ directly from the fitted model and estimate the conditional treatment effect (CTE) as the difference between the predicted outcome under treatment status $t$ and under the control condition: $\hat{\delta}(t; \tilde{X}_i) = \frac{1}{2}(\hat{Y}_i(t) - \hat{Y}_i(0))$.
+Further, the model can estimate the conditional average treatment effect (CATE), which is defined as $\tau(t; \tilde{x}) = \mathbb{E}(Y_i(t) - Y_i(0)\,|\,\tilde{X}_i = \tilde{x})$, for a given covariate profile $\tilde{x}$.
+Specifically, the authors define $\hat{W}_i^*(t)$ as the predicted $\hat{W}_i^*(t)$ values truncated at positive and negative one.
+Then the CATE is estimated as the difference in truncated values of the predicted outcome variables, $\hat{\tau}(t; \tilde{X}_i) = \frac{1}{2}(\hat{W}_i^*(t) - \hat{W}_i^*(0))$. 
+While not a true difference in probabilities, the authors argue that $\hat{\tau}(t; \tilde{X}_i)$ provides a reasonable approximation of the CATE. 
+
+\subsection{Estimating algorithm}
+
+\section{Reproducing Results}
+
+\section{Results}
+
+\section{Conclusion}
 
 % Bibliography ----------------------
 \bibliographystyle{plain}
