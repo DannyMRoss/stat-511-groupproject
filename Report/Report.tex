@@ -160,6 +160,23 @@ While not a true difference in probabilities, the authors argue that $\hat{\tau}
 
 \section{Results}
 
+\subsection{Selecting the best get-out-the-vote mobilization strategies}
+
+To fit their proposed model to the \texttt{GerberGreen} data, the authors transform \texttt{voted98} to $\{\pm1\}$, define $Z_i$ as 192 binary indicator variables for the 192 possible treatment combinations, such that $K_Z = 192$, and define $V_i$ as the pre-treatment control covariates including the four main effects of \texttt{age}, \texttt{majorpty}, \texttt{vote96.1}, \texttt{vote96.0}; five two-way interaction terms: \texttt{age}:\texttt{majorpty}, \texttt{age}:\texttt{vote96.1}, \texttt{age}:\texttt{vote96.0}, \texttt{majorpty}:\texttt{vote96.1}, and \texttt{vote96.1}:\texttt{vote96.0}; and \texttt{age}$^2$, such that $K_V = 10$.
+
+The authors find that 15 of the 192 treatment effect combinations are estimated as nonzero. 
+Notably, they find that canvassing in person, i.e., \texttt{persngrp} $=1$, is the most effective GOTV technique.
+Specifically, they find that compared to the baseline of no treatment of any type administered, registered voters that received a personal visit were 2.69 percentage points more likely to vote.
+Further, they find that all mobilization strategies with a phone call and no personal visit either have no effect on voter turnout or are estimated to decrease voter turnout.
+For example, they find that the mobilization strategy of (\texttt{persngrp} $=0$, \texttt{phnscrpt} $=2-$civic appeal, \texttt{mailings} $=3$, \texttt{appeal} $=2-$ neighborhood solidarity) was estimated to decrease voter turnout by 4.12 percentage points compared to the baseline.
+Moreover, they find that the most effective treatment combination without canvassing was three mailings with a civic responsibility message and no phone calls, which was estimated to increase voter turnout by 1.17 percentage points.
+This result is relevant because canvassing is the most expensive mobilization strategy.
+
+Therefore, the authors conclude that in the presence of canvassing, the additional treatments of phone calls or mailings will lessen the canvassing's effectiveness. And if voters are not canvassed, they should be treated with three mailings with a civi duty appeal. 
+
+\subsection{Identifying workers for whom job training is beneficial}
+
+
 \section{Conclusion}
 
 % Bibliography ----------------------
