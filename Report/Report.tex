@@ -1,6 +1,7 @@
 \documentclass[11pt]{article} 
 
 \usepackage[margin=1in]{geometry}
+\usepackage{indentfirst}
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{fancyhdr}
@@ -57,14 +58,14 @@ Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of t
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=.9\textwidth]{figs/GerberGreenTreatments.png}
+    \includegraphics[width=\textwidth]{figs/GerberGreenTreatments.png}
     \caption{Voting Outcome by Treatment Type}
     \label{fig:gerbergreentreatments}
 \end{figure}
 
 \begin{figure}[p]
     \centering
-    \includegraphics[width=.9\textwidth]{figs/GerberGreenControls.png}
+    \includegraphics[width=\textwidth]{figs/GerberGreenControls.png}
     \caption{Voting Outcome by Pre-Treatment Control}
     \label{fig:gerbergreencontrols}
 \end{figure}
@@ -78,20 +79,38 @@ Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of t
 
 Table~\ref{tab:LaLonde} provides a preview of the \texttt{LaLonde} dataset. This dataset includes one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
 Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975;
-\texttt{treat} \ldots
-\texttt{age} \ldots
-\texttt{educ} \ldots
-\texttt{black} \ldots
-\texttt{hisp} \ldots
-\texttt{white} \ldots
-\texttt{marr} \ldots
-\texttt{nodegr} \ldots
-\texttt{log.re75} \ldots
-\texttt{u75} \ldots
-\texttt{wts.extrap} \ldots
-
+\texttt{treat} is a binary treatment variable for whether an individual received the job training or not;
+\texttt{age} is an ordinal control for the age in years of workers;
+\texttt{educ} is an ordinal control for the years of education of workers;
+\texttt{black} is a binary control for whether the worker is black or not;
+\texttt{hisp} is a binary control for whether the worker is hispanic or not;
+\texttt{white} is a binary control for whether the worker is white or not;
+\texttt{marr} is a binary control for whether the worker is married or not;
+\texttt{nodegr} is a binary control for whether the worker has a high school degree or not;
+\texttt{log.re75} is a continuous control for workers pre-treatment log earnings in 1975;
+\texttt{u75} is a binary control for whether the worker was unemployed in 1975 or not.
+%\texttt{wts.extrap}
 
 \input{tbls/LaLondetbl.tex}
+
+Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%), had larger earnings in 1978 compared to 1975.
+Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
+Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had larger earnings by the levels of each of the pre-treatment controls.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/LaLondeTreatments.png}
+    \caption{Earnings Outcome by Treatment}
+    \label{fig:lalondetreatments}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{figs/LaLondeControls.png}
+    \caption{Earnings Outcome by Pre-Treatment Control}
+    \label{fig:lalondecontrols}
+\end{figure}
+
 
 \section{Model and Methods Description}
 %Clearly describe the proposed model in the analysis. Outline the statistical estimation methods.

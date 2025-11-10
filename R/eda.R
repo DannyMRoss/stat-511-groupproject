@@ -24,6 +24,7 @@ two.way.bp <- function(
     x.levels = c("0=No", "1=Yes"),
     y.levels = c("0=No", "1=Yes"),
     ylab = "Count",
+    xlab = NULL,
     cols = c("lightgray", "black"),
     yadj = .025,
     cex.main = .75,
@@ -63,6 +64,9 @@ two.way.bp <- function(
     tick = F,
     cex.axis = 0.5
     )
+  if (!is.null(xlab)){
+    mtext(xlab, side = 1, line = 1)
+  }
   if (legend){
     legend(
       "topright",
@@ -77,7 +81,6 @@ two.way.bp <- function(
 }
 
 # GerberGreen ----
-## tables ----
 GerberGreen.tbl <- tbl.prev(GerberGreen)
 
 k <- kbl(
@@ -102,6 +105,7 @@ persngrp.labels <- c("No","Yes")
 treatments <- c("persngrp","phnscrpt","mailings","appeal")
 controls <- c("age_g", "majorpty", "vote96.1", "vote96.0")
 dt <- copy(GerberGreen)
+setDT(dt)
 dt[, phnscrpt := factor(phnscrpt, levels = 0:6, labels = phnscrpt.labels)]
 dt[, persngrp := factor(persngrp, levels = 0:1, labels = persngrp.labels)]
 dt[, appeal := factor(appeal, levels = 1:3, labels = appeal.labels)]
@@ -148,8 +152,6 @@ k <- kbl(
   )
 
 save_kable(k, file = "Report/tbls/GerberGreenControlInteraction.tex")
-
-## figures ----
 
 GerberGreenTreatments <- function(){
   graphics.off()
@@ -242,6 +244,7 @@ GerberGreenControls <- function(){
 GerberGreenControls()
 
 # LaLonde ----
+LaLonde$wts.extrap <- NULL
 
 LaLonde.tbl <- tbl.prev(LaLonde)
 
@@ -261,3 +264,186 @@ k <- kbl(
   )
 
 save_kable(k, file = "Report/tbls/LaLondetbl.tex")
+
+nrow(LaLonde)
+table(LaLonde$outcome)
+prop.table(table(LaLonde$outcome))
+
+table(LaLonde$outcome, LaLonde$treat)
+prop.table(table(LaLonde$outcome, LaLonde$treat))
+
+LaLondeTreatments <- function(){
+  graphics.off()
+  png(
+    "Report/figs/LaLondeTreatments.png",
+    width = 6.5,
+    height = 3.5,
+    units = "in",
+    res = 1000
+  )
+  par(
+    mfrow = c(1, 1),
+    mar = c(4, 2, 1, 1),
+    mgp = c(3, 0, 0)
+  )
+  two.way.bp(
+    LaLonde,
+    x = "treat",
+    y = "outcome",
+    x.desc = "Job Training on Earnings",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    ylab = "Count",
+    xlab = "Treatment",
+    cols = c("lightgray", "black"),
+    yadj = .025,
+    cex.main = .75,
+    cex.axis = 1,
+    cex.text = 0.75,
+    cex.legend = 0.75,
+    yat = seq(0,400,100),
+    legend = TRUE
+  )
+  dev.off()
+}
+
+LaLondeTreatments()
+
+dt <- copy(LaLonde)
+setDT(dt)
+dt[, age_g := cut(age, breaks = c(17,22,27,32,37,42,47,52,57), include.lowest = T, ordered_result = T)]
+dt[, educ_g := cut(educ, breaks = c(3,6,9,12,16), include.lowest = T, ordered_result = T)]
+dt[, log.re75_g := cut(log.re75, breaks = c(0,5:11), include.lowest = T, ordered_result = T)]
+levels(dt$log.re75_g)[1] <- "0"
+
+
+LaLondeControls <- function(){
+  graphics.off()
+  png(
+    "Report/figs/LaLondeControls.png",
+    width = 6.5,
+    height = 6.5,
+    units = "in",
+    res = 1000
+  )
+  par(
+    mfrow = c(3, 3),
+    mar = c(2, 2, 1, 1),
+    mgp = c(3, 0, 0)
+  )
+  two.way.bp(
+    dt,
+    x = "age_g",
+    y = "outcome",
+    x.desc = "Age",
+    y.desc = "Earnings Outcome",
+    x.levels = levels(dt$age_g),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    cex.text = 0.25,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    dt,
+    x = "educ_g",
+    y = "outcome",
+    x.desc = "Education",
+    y.desc = "Earnings Outcome",
+    x.levels = levels(dt$educ_g),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    cex.text = 0.25,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    LaLonde,
+    x = "black",
+    y = "outcome",
+    x.desc = "Black",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    LaLonde,
+    x = "hisp",
+    y = "outcome",
+    x.desc = "Hispanic",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    LaLonde,
+    x = "white",
+    y = "outcome",
+    x.desc = "White",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    LaLonde,
+    x = "marr",
+    y = "outcome",
+    x.desc = "Married",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    LaLonde,
+    x = "nodegr",
+    y = "outcome",
+    x.desc = "No High School Degree",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    dt,
+    x = "log.re75_g",
+    y = "outcome",
+    x.desc = "1975 log earnings",
+    y.desc = "Earnings Outcome",
+    x.levels = levels(dt$log.re75_g),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    cex.text = 0.25,
+    yat = seq(0,400,100),
+    legend = FALSE
+  )
+  two.way.bp(
+    LaLonde,
+    x = "u75",
+    y = "outcome",
+    x.desc = "1975 Unemployment",
+    y.desc = "Earnings Outcome",
+    x.levels = c("0=No", "1=Yes"),
+    y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
+    cex.axis = 0.75,
+    yat = seq(0,400,100),
+    legend = TRUE
+  )
+  dev.off()
+}
+
+LaLondeControls()

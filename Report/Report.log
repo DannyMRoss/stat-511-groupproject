@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  8 NOV 2025 17:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  10 NOV 2025 11:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -49,6 +49,9 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@layouthoffset=\dimen148
 \Gm@layoutvoffset=\dimen149
 \Gm@dimlist=\toks18
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/indentfirst.sty
+Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
@@ -137,20 +140,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -228,63 +231,72 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <figs/GerberGreenTreatments.png, id=1, 6524.375pt x 6524.375pt>
 File: figs/GerberGreenTreatments.png Graphic file (type png)
 <use figs/GerberGreenTreatments.png>
-Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 60.
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 61.
 
-(pdftex.def)             Requested size: 422.77664pt x 422.70552pt.
+(pdftex.def)             Requested size: 469.75502pt x 469.69492pt.
 
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-<figs/GerberGreenControls.png, id=12, 6524.375pt x 6524.375pt>
-File: figs/GerberGreenControls.png Graphic file (type png)
-<use figs/GerberGreenControls.png>
-Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 67.
-(pdftex.def)             Requested size: 422.77664pt x 422.70552pt.
+Overfull \vbox (16.24052pt too high) has occurred while \output is active []
 
-(./tbls/GerberGreenTreatmentInteraction.tex
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-) (./tbls/GerberGreenControlInteraction.tex
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-)
 
 [2 <./figs/GerberGreenTreatments.png>]
+<figs/GerberGreenControls.png, id=16, 6524.375pt x 6524.375pt>
+File: figs/GerberGreenControls.png Graphic file (type png)
+<use figs/GerberGreenControls.png>
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 68.
+(pdftex.def)             Requested size: 469.75502pt x 469.69492pt.
 
-[3 <./figs/GerberGreenControls.png>]
-
-LaTeX Warning: Text page 4 contains only floats.
-
-
-Overfull \vbox (4.01053pt too high) has occurred while \output is active []
-
-
-
-[4] (./tbls/LaLondetbl.tex
+(./tbls/GerberGreenTreatmentInteraction.tex)
+(./tbls/GerberGreenControlInteraction.tex
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 )
 
-[5] (./Report.bbl)
+[3]
 
-[6] (./Report.aux)
+[4 <./figs/GerberGreenControls.png>] (./tbls/LaLondetbl.tex
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+)
+<figs/LaLondeTreatments.png, id=25, 6524.375pt x 3513.125pt>
+File: figs/LaLondeTreatments.png Graphic file (type png)
+<use figs/LaLondeTreatments.png>
+Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 102.
+(pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
+
+
+[5]
+<figs/LaLondeControls.png, id=30, 6524.375pt x 6524.375pt>
+File: figs/LaLondeControls.png Graphic file (type png)
+<use figs/LaLondeControls.png>
+Package pdftex.def Info: figs/LaLondeControls.png  used on input line 109.
+(pdftex.def)             Requested size: 469.75502pt x 469.69492pt.
+
+
+[6 <./figs/LaLondeTreatments.png>]
+
+[7 <./figs/LaLondeControls.png>] (./Report.bbl)
+
+[8] (./Report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2955 strings out of 473190
- 46333 string characters out of 5715801
- 508512 words of memory out of 5000000
- 26185 multiletter control sequences out of 15000+600000
+ 2989 strings out of 473190
+ 47436 string characters out of 5715801
+ 507942 words of memory out of 5000000
+ 26215 multiletter control sequences out of 15000+600000
  566162 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,12n,65p,408b,321s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,408b,343s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
@@ -295,10 +307,10 @@ cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/t
 exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Report.pdf (6 pages, 1271563 bytes).
+Output written on Report.pdf (8 pages, 2182446 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 90 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
