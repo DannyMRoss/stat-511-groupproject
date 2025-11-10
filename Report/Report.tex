@@ -104,7 +104,7 @@ Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had large
     \label{fig:lalondetreatments}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figs/LaLondeControls.png}
     \caption{Earnings Outcome by Pre-Treatment Control}
@@ -113,7 +113,9 @@ Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had large
 
 
 \section{Model and Methods Description}
-%Clearly describe the proposed model in the analysis. Outline the statistical estimation methods.
+%Clearly describe the proposed model in the analysis. Outline the statistical estimation methods. For the proposed inference methods, provide an algorithm (e.g.,  with sufficient detail to implement the methods, using the input described in the Data Description section.
+
+\subsection{Framework}
 
 In order to overcome the methodological challenges of (1) extracting useful information from sparse randomized evaluation study data, (2) identifying sub-groups for whom a treatment is beneficial, and (3) generalizing the results of an experiment to a target population, the authors' formulate the estimation of heterogeneous treatment effects as a variable selection problem.
 Specifically, the paper develops a Squared Loss Support Vector Machine (L2-SVM) with separate LASSO constraints over the pre-treatment and causal heterogeneity parameters, such that the causal heterogeneity variables of interest are separated from the rest of the variables. 
@@ -125,6 +127,8 @@ Thus, by leveraging the fact that the L2-SVM is an optimal classifier, the propo
 To fit the proposed model the authors' use an estimation algorithm based on a generalized cross-validation (GCV) statistic.
 Because of the structure of the proposed model, the SVM becomes a least squares problem on a subset of the data, therefore the L2-SVM is fitted through a series of iterated LASSO fits.
 Accordingly, the authors' employ an efficient coordinate descent algorithm for the LASSO fits. 
+
+\subsection{Model}
 
 
 % Bibliography ----------------------
