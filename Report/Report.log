@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  10 NOV 2025 13:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  10 NOV 2025 13:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -200,6 +200,25 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks27
 \@floatcapt=\box55
 )
+(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count290
@@ -208,20 +227,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -279,13 +298,13 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -299,7 +318,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <figs/GerberGreenTreatments.png, id=10, 6524.375pt x 6524.375pt>
 File: figs/GerberGreenTreatments.png Graphic file (type png)
 <use figs/GerberGreenTreatments.png>
-Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 66.
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 67.
 
 (pdftex.def)             Requested size: 469.75502pt x 469.69492pt.
 
@@ -308,7 +327,7 @@ Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 66.
 <figs/GerberGreenControls.png, id=16, 6524.375pt x 6524.375pt>
 File: figs/GerberGreenControls.png Graphic file (type png)
 <use figs/GerberGreenControls.png>
-Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 73.
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 74.
 (pdftex.def)             Requested size: 469.75502pt x 469.69492pt.
  (./tbls/GerberGreenTreatmentInteraction.tex
 
@@ -331,18 +350,23 @@ Overfull \vbox (4.01053pt too high) has occurred while \output is active []
 
 
 
-[5] (./tbls/LaLondetbl.tex)
+[5] (./tbls/LaLondetbl.tex
 
-[6]
-<figs/LaLondeTreatments.png, id=33, 6524.375pt x 3513.125pt>
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+)
+<figs/LaLondeTreatments.png, id=29, 6524.375pt x 3513.125pt>
 File: figs/LaLondeTreatments.png Graphic file (type png)
 <use figs/LaLondeTreatments.png>
-Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 107.
+Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 110.
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
+
+
+[6]
 <figs/LaLondeControls.png, id=34, 6524.375pt x 6524.375pt>
 File: figs/LaLondeControls.png Graphic file (type png)
 <use figs/LaLondeControls.png>
-Package pdftex.def Info: figs/LaLondeControls.png  used on input line 114.
+Package pdftex.def Info: figs/LaLondeControls.png  used on input line 117.
 (pdftex.def)             Requested size: 469.75502pt x 469.69492pt.
 
 
@@ -359,13 +383,13 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3697 strings out of 473190
- 56512 string characters out of 5715801
- 519324 words of memory out of 5000000
- 26905 multiletter control sequences out of 15000+600000
+ 4191 strings out of 473190
+ 63401 string characters out of 5715801
+ 533201 words of memory out of 5000000
+ 27389 multiletter control sequences out of 15000+600000
  568015 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,12n,65p,584b,418s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,584b,421s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -381,7 +405,7 @@ ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
 /2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/
 2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2
 025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Report.pdf (10 pages, 2235164 bytes).
+Output written on Report.pdf (10 pages, 2235479 bytes).
 PDF statistics:
  121 PDF objects out of 1000 (max. 8388607)
  70 compressed objects within 1 object stream
