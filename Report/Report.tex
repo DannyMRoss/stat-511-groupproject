@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{indentfirst}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
@@ -134,7 +135,7 @@ Accordingly, the authors' employ an efficient coordinate descent algorithm for t
 
 \subsection{Model}
 
-
+For modeling, the authors transform the binary outcome to $Y_i^* = 2Y_i - 1 \in \{\pm1\}$ and then relate the estimated binary outcome $\hat{Y_i} \in \{\pm1\}$ to the estimated latent variable $\hat{W_i} \in \mathbb{R}$, where \[\hat{Y_i} = \operatorname{sgn}(\hat{W_i})\quad\text{and}\quad\hat{W_i} = \hat{\mu} + \hat{\beta}^{\top}Z_i + \hat{\gamma}^{\top}V_i,\] here $Z_i$ is an $L_Z$ dimensional vector of treatment effect heterogeneity variables and $V_i$ is an $L_V$ dimensional vector containing the remaining control covariates.
 
 
 % Bibliography ----------------------
