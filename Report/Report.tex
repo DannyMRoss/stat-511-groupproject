@@ -137,6 +137,7 @@ Accordingly, the authors' employ an efficient coordinate descent algorithm for t
 
 For modeling, the authors transform the binary outcome to $Y_i^* = 2Y_i - 1 \in \{\pm1\}$ and then relate the estimated binary outcome $\hat{Y_i} \in \{\pm1\}$ to the estimated latent variable $\hat{W_i} \in \mathbb{R}$, where \[\hat{Y_i} = \operatorname{sgn}(\hat{W_i})\quad\text{and}\quad\hat{W_i} = \hat{\mu} + \hat{\beta}^{\top}Z_i + \hat{\gamma}^{\top}V_i,\] here $Z_i$ is an $L_Z$ dimensional vector of treatment effect heterogeneity variables and $V_i$ is an $L_V$ dimensional vector containing the remaining control covariates.
 
+In order to estimate the parameters $(\beta, \gamma)$ the authors adapt a support vector machine (SVM) classifier and place separate LASSO constraints over each set of coefficients. Specifically, the estimates are given by the objective function \[(\hat{\beta}, \hat{\gamma}) = \underset{(\beta, \gamma)}{\text{arg min}} \sum_{i=1}^{n} w_i \cdot |1-Y_i^* \cdot(\mu + \beta^{\top}Z_i + \gamma^{\top}V_i)|^2_{+} + \lambda_Z \sum_{j=1}^{L_Z} |\beta_j| + \lambda_V \sum_{j=1}^{L_V}|\gamma_j|,\] where $\lambda_Z$ and $\lambda_V$ are pre-determined separate LASSO penalty parameters and $w_i$ is an optional sampling weight for generalizing results from a sample to a target population. Here, the authors formulate the SVM as a penalized squared hinge-loss objective function (L2-SVM) where the hinge-loss is defined as $|x|_+ \equiv \max(x,0)$. 
 
 % Bibliography ----------------------
 \bibliographystyle{plain}
