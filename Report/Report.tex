@@ -17,7 +17,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[R]{Chengyuan $\diamond$ Daniel $\diamond$ Junjie}
-\fancyhead[L]{STAT 511 - Group Project}
+\fancyhead[L]{STAT 511 $\diamond$ Group Project}
 \fancyfoot[C]{\thepage}
 \setlength{\headheight}{15pt}
 
@@ -61,7 +61,6 @@ Further, Table~\ref{tab:GerberGreenTreatmentInteraction} provides a breakdown of
 Note, in the original experiment design there were 193 unique treatment combinations randomly administered to registered voters; however, the authors limited their study to single voter households to avoid interference among voters in the same household and thus only 72 treatment combinations are present in the subsetted data.
 Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the pre-treatment control covariates.
 
-\input{tbls/GerberGreentbl.tex}
 
 \begin{figure}[H]
     \centering
@@ -70,17 +69,13 @@ Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of t
     \label{fig:gerbergreentreatments}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figs/GerberGreenControls.png}
     \caption{Voting Outcome by Pre-Treatment Control}
     \label{fig:gerbergreencontrols}
 \end{figure}
 
-
-\input{tbls/GerberGreenTreatmentInteraction.tex}
-
-\input{tbls/GerberGreenControlInteraction.tex}
 
 {\color{red} [[Add summary of main results from above visualizations]]}
 
@@ -99,8 +94,6 @@ Specifically, \texttt{outcome} is a binary outcome variable of whether earnings 
 \texttt{log.re75} is a continuous control for workers pre-treatment log earnings in 1975;
 \texttt{u75} is a binary control for whether the worker was unemployed in 1975 or not.
 %\texttt{wts.extrap}
-
-\input{tbls/LaLondetbl.tex}
 
 Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%), had larger earnings in 1978 compared to 1975.
 Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
@@ -190,11 +183,26 @@ However, the CATE for groups of high earning Hispanic workers was as low as -21 
 
 
 
-
 \section{Conclusion}
 
 % Bibliography ----------------------
 \bibliographystyle{plain}
 \bibliography{../bibliography}
+
+
+\newpage
+\appendix
+\section{Appendix}
+
+\input{tbls/GerberGreentbl.tex}
+
+\input{tbls/LaLondetbl.tex}
+
+\input{tbls/GerberGreenTreatmentInteraction.tex}
+
+\input{tbls/GerberGreenControlInteraction.tex}
+
+
+
 
 \end{document}  

@@ -26,7 +26,7 @@ two.way.bp <- function(
     ylab = "Count",
     xlab = NULL,
     cols = c("lightgray", "black"),
-    yadj = .025,
+    yadj = .03,
     cex.main = .75,
     cex.axis = 0.5,
     cex.text = 0.75,
@@ -153,14 +153,20 @@ k <- kbl(
 
 save_kable(k, file = "Report/tbls/GerberGreenControlInteraction.tex")
 
-GerberGreenTreatments <- function(){
-  graphics.off()
-  png(
-    "Report/figs/GerberGreenTreatments.png",
+GerberGreenTreatments <- function(
+    file = "Report/figs/GerberGreenTreatments.png",
     width = 6.5,
     height = 6.5,
     units = "in",
     res = 1000
+    ){
+  graphics.off()
+  png(
+    file,
+    width = width,
+    height = height,
+    units = units,
+    res = res
     )
   par(
     mfrow = c(2, 2),
@@ -196,17 +202,23 @@ GerberGreenTreatments <- function(){
   dev.off()
 }
 
-GerberGreenTreatments()
+GerberGreenTreatments(height = 4)
 
-GerberGreenControls <- function(){
-  graphics.off()
-  png(
-    "Report/figs/GerberGreenControls.png",
+GerberGreenControls <- function(
+    file = "Report/figs/GerberGreenControls.png",
     width = 6.5,
     height = 6.5,
     units = "in",
     res = 1000
-    )
+    ){
+  graphics.off()
+  png(
+    file,
+    width = width,
+    height = height,
+    units = units,
+    res = res
+  )
   par(
     mfrow = c(2, 2),
     mar = c(2, 2, 1, 1),
@@ -241,7 +253,7 @@ GerberGreenControls <- function(){
   dev.off()
 }
 
-GerberGreenControls()
+GerberGreenControls(height = 4)
 
 # LaLonde ----
 LaLonde$wts.extrap <- NULL
@@ -277,13 +289,13 @@ LaLondeTreatments <- function(){
   png(
     "Report/figs/LaLondeTreatments.png",
     width = 6.5,
-    height = 3.5,
+    height = 2.5,
     units = "in",
     res = 1000
   )
   par(
     mfrow = c(1, 1),
-    mar = c(4, 2, 1, 1),
+    mar = c(2, 2, 1, 1),
     mgp = c(3, 0, 0)
   )
   two.way.bp(
@@ -298,10 +310,10 @@ LaLondeTreatments <- function(){
     xlab = "Treatment",
     cols = c("lightgray", "black"),
     yadj = .025,
-    cex.main = .75,
-    cex.axis = 1,
-    cex.text = 0.75,
-    cex.legend = 0.75,
+    cex.main = .5,
+    cex.axis = .5,
+    cex.text = 0.5,
+    cex.legend = 0.5,
     yat = seq(0,400,100),
     legend = TRUE
   )
@@ -323,7 +335,7 @@ LaLondeControls <- function(){
   png(
     "Report/figs/LaLondeControls.png",
     width = 6.5,
-    height = 6.5,
+    height = 4.5,
     units = "in",
     res = 1000
   )
@@ -440,6 +452,7 @@ LaLondeControls <- function(){
     x.levels = c("0=No", "1=Yes"),
     y.levels = c("0=1978 Earnings Not Larger", "1=1978 Earnings Larger"),
     cex.axis = 0.75,
+    cex.legend = .5,
     yat = seq(0,400,100),
     legend = TRUE
   )
