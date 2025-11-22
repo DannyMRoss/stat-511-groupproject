@@ -26,7 +26,7 @@ two.way.bp <- function(
     ylab = "Count",
     xlab = NULL,
     cols = c("lightgray", "black"),
-    yadj = .03,
+    yadj = .04,
     cex.main = .75,
     cex.axis = 0.5,
     cex.text = 0.75,
@@ -37,14 +37,15 @@ two.way.bp <- function(
   tab <- t(table(df[[x]], df[[y]]))
   prop <- prop.table(tab, margin = 2)
   label = paste0(round(as.vector(prop)*100, 1), "%")
-  yadd <- max(yat) * yadj
+  ym <- max(yat)*(1+3*yadj)
+  yadd <- ym * yadj
   bp <- barplot(
     tab, 
     beside = TRUE,
     col = cols,
     main = x.desc,
     cex.main = cex.main,
-    ylim = c(0,max(yat)*(1+3*yadj)),
+    ylim = c(0,ym),
     yaxt = 'n',
     xaxt = 'n'
     )
@@ -183,8 +184,7 @@ GerberGreenTreatments <- function(
     x.desc = "Phone Message", 
     x.levels = phnscrpt.labels,
     cex.text = .25,
-    cex.axis = .25,
-    legend = TRUE
+    cex.axis = .25
     )
   two.way.bp(
     GerberGreen,
@@ -198,11 +198,12 @@ GerberGreenTreatments <- function(
     x = "appeal",
     x.desc = "Appeal", 
     x.levels = appeal.labels,
+    legend = TRUE
     )
   dev.off()
 }
 
-GerberGreenTreatments(height = 4)
+GerberGreenTreatments(height = 3.5)
 
 GerberGreenControls <- function(
     file = "Report/figs/GerberGreenControls.png",
@@ -235,8 +236,7 @@ GerberGreenControls <- function(
     GerberGreen,
     x = "majorpty",
     x.desc = "Major Party", 
-    x.levels = c("0=Not Democratic or Republican", "1=Democratic or Republican"),
-    legend = TRUE
+    x.levels = c("0=Not Democratic or Republican", "1=Democratic or Republican")
     )
   two.way.bp(
     GerberGreen,
@@ -248,12 +248,13 @@ GerberGreenControls <- function(
     GerberGreen,
     x = "vote96.0",
     x.desc = "Abstained in 1996",
-    x.levels = c("0=No", "1=Yes")
+    x.levels = c("0=No", "1=Yes"),
+    legend = TRUE
     )
   dev.off()
 }
 
-GerberGreenControls(height = 4)
+GerberGreenControls(height = 3.5)
 
 # LaLonde ----
 LaLonde$wts.extrap <- NULL
@@ -284,14 +285,20 @@ prop.table(table(LaLonde$outcome))
 table(LaLonde$outcome, LaLonde$treat)
 prop.table(table(LaLonde$outcome, LaLonde$treat))
 
-LaLondeTreatments <- function(){
-  graphics.off()
-  png(
-    "Report/figs/LaLondeTreatments.png",
-    width = 6.5,
-    height = 2.5,
+LaLondeTreatments <- function(
+    file = "Report/figs/LaLondeTreatments.png",
+    width = 3.5,
+    height = 2,
     units = "in",
     res = 1000
+){
+  graphics.off()
+  png(
+    file,
+    width = width,
+    height = height,
+    units = units,
+    res = res
   )
   par(
     mfrow = c(1, 1),
@@ -460,3 +467,4 @@ LaLondeControls <- function(){
 }
 
 LaLondeControls()
+

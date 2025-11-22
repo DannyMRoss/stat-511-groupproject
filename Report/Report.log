@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  22 NOV 2025 12:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  22 NOV 2025 15:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -242,20 +242,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./Report.aux)
 \openout1 = `Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -313,100 +313,103 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 38.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Overfull \hbox (5.9051pt too wide) in paragraph at lines 44--45
+[]\OT1/cmr/bx/n/10.95 Chengyuan\OT1/cmr/m/n/10.95 : Sim-u-la-tion study, ...\OT
+1/cmr/bx/n/10.95 Daniel\OT1/cmr/m/n/10.95 : Ex-ploratory data anal-y-sis, re-po
+rt writ-ing, ...\OT1/cmr/bx/n/10.95 Junjie
+ []
+
+
 
 [1
 
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-[1]
-<figs/GerberGreenTreatments.png, id=15, 6524.375pt x 4015.0pt>
+<figs/GerberGreenTreatments.png, id=11, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenTreatments.png Graphic file (type png)
 <use figs/GerberGreenTreatments.png>
-Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 86.
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 78.
 
-(pdftex.def)             Requested size: 469.75502pt x 289.04303pt.
-<figs/GerberGreenControls.png, id=17, 6524.375pt x 4015.0pt>
+(pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
+
+
+[1]
+<figs/GerberGreenControls.png, id=17, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenControls.png Graphic file (type png)
 <use figs/GerberGreenControls.png>
-Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 93.
-(pdftex.def)             Requested size: 469.75502pt x 289.04303pt.
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 85.
+(pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
 
 
-[2 <./figs/GerberGreenTreatments.png>]
-<figs/LaLondeTreatments.png, id=22, 6524.375pt x 2509.375pt>
+[2 <./figs/GerberGreenTreatments.png> <./figs/GerberGreenControls.png>]
+<figs/LaLondeTreatments.png, id=23, 3513.125pt x 2007.5pt>
 File: figs/LaLondeTreatments.png Graphic file (type png)
 <use figs/LaLondeTreatments.png>
-Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 123.
-(pdftex.def)             Requested size: 469.75502pt x 180.65189pt.
-
-
-[3 <./figs/GerberGreenControls.png>]
-<figs/LaLondeControls.png, id=27, 6524.375pt x 4516.875pt>
+Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 102.
+(pdftex.def)             Requested size: 234.8775pt x 134.19855pt.
+<figs/LaLondeControls.png, id=24, 6524.375pt x 4516.875pt>
 File: figs/LaLondeControls.png Graphic file (type png)
 <use figs/LaLondeControls.png>
-Package pdftex.def Info: figs/LaLondeControls.png  used on input line 130.
+Package pdftex.def Info: figs/LaLondeControls.png  used on input line 109.
 (pdftex.def)             Requested size: 469.75502pt x 325.1734pt.
 
 
-[4 <./figs/LaLondeTreatments.png> <./figs/LaLondeControls.png>]
+[3 <./figs/LaLondeTreatments.png> <./figs/LaLondeControls.png>]
+
+[4]
 
 [5]
 
-[6]
+[6] (./Report.bbl)
 
-[7] (./Report.bbl)
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 193--194
 
-[8] (./tbls/GerberGreentbl.tex) (./tbls/LaLondetbl.tex)
-(./tbls/GerberGreenTreatmentInteraction.tex
+ []
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-) (./tbls/GerberGreenControlInteraction.tex
+(./tbls/GerberGreentbl.tex) (./tbls/GerberGreenTreatmentInteraction.tex
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 )
 
-[9]
+[8]
 
-LaTeX Warning: Text page 10 contains only floats.
+LaTeX Warning: Text page 9 contains only floats.
 
 
 Overfull \vbox (4.01053pt too high) has occurred while \output is active []
 
 
 
-[10]
+[9] (./tbls/GerberGreenControlInteraction.tex)
+
+[10] (./tbls/LaLondetbl.tex)
 
 [11] (./Report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 4547 strings out of 473190
- 68515 string characters out of 5715801
- 540782 words of memory out of 5000000
- 27733 multiletter control sequences out of 15000+600000
- 568955 words of font info for 75 fonts, out of 8000000 for 9000
+ 4546 strings out of 473190
+ 68500 string characters out of 5715801
+ 525673 words of memory out of 5000000
+ 27732 multiletter control sequences out of 15000+600000
+ 568648 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,14n,65p,684b,319s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -425,7 +428,7 @@ ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive
 25/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/202
 5/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Report.pdf (12 pages, 1785585 bytes).
+Output written on Report.pdf (12 pages, 1710765 bytes).
 PDF statistics:
  132 PDF objects out of 1000 (max. 8388607)
  77 compressed objects within 1 object stream

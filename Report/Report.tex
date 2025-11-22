@@ -10,13 +10,12 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{xcolor}
-
 \usepackage{titlesec} 
 
 \titleformat{\section}[runin]
-  {\normalfont\large\bfseries}{\thesection}{1em}{}
+  {\normalfont\normalsize\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}[runin]
-  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
 \titleformat{\subsubsection}[runin]
   {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
 
@@ -42,7 +41,7 @@
   	\textbf{Author Contributions} 
   \end{center}
   
-  \textbf{Chengyuan}: \ldots \textbf{Daniel}: \ldots \textbf{Junjie} \ldots
+  \textbf{Chengyuan}: Simulation study, \ldots \textbf{Daniel}: Exploratory data analysis, report writing, \ldots \textbf{Junjie} Model and methods description, \ldots
 \end{titlepage}
 
 \setcounter{page}{1}
@@ -61,25 +60,18 @@ As well as the dataset \texttt{LaLonde}, which is data from the national support
 
 \subsection{Gerber and Green (1998) New Haven Get-Out-the-Vote}
 
-Table~\ref{tab:GerberGreen} provides a preview of the \texttt{GerberGreen} dataset. This dataset includes one outcome variable, four treatment variables, and four pre-treatment control covariates.
-Specifically, \texttt{voted98} is a binary outcome variable of whether a registered voter voted or not in the 1998 election;
-\texttt{persngrp} is a binary treatment variable of whether a personal visit of a registered voter was made;
-\texttt{phnscrpt} is a categorical treatment variable with 7 levels (0 - no phone call, 1 - donate blood, 2 - civic appeal, 3 - civic appeal/donate blood, 4 - neighborhood solidarity, 5 - civic appeal/neighborhood solidarity, 6 - close election), for the phone message scripts read to registered voters;
-\texttt{mailings} is an ordinal treatment variable of the number (0-3) of mailings sent to voters;
-\texttt{appeal} is a categorical treatment variable with 3 levels (1 - civic duty, 2 - neighborhood solidarity, 3 - close election) for the content of the appeal made to registered voters;
-\texttt{age} is an ordinal control for the age of the registered voter;
-\texttt{majorpty} is a binary control for whether the registered voter was registered with either the Democratic or Republican part (1) or not (0);
-\texttt{vote96.1} is a binary control for whether the registered voter voted in the 1996 election;
-\texttt{vote96.0} is a binary control for whether the registered voter abstained in the 1996 election.
+The \texttt{GerberGreen} dataset includes one binary outcome variable, four treatment variables, and four pre-treatment control covariates.
+Specifically, \texttt{voted98} is the binary outcome variable of whether a registered voter voted or not in the 1998 election.
+The appendix includes a preview of \texttt{GerberGreen} at Table~\ref{tab:GerberGreen} as well as additional details on the covariates. 
 
 Of the 14,774 registered voters collected in \texttt{GerberGreen}, 5,879 (39.8\%), voted in the 1998 election.
 Figure~\ref{fig:gerbergreentreatments} provides the proportion that voted in the 1998 election by the levels of each of the four treatment types.
 Whereas, Figure~\ref{fig:gerbergreencontrols} provides the proportion that voted in the 1998 election by the levels of each of the four pre-treatment controls.
 
 Further, Table~\ref{tab:GerberGreenTreatmentInteraction} provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the four treatment variables present in \texttt{GerberGreen}.
-Note, in the original experiment design there were 193 unique treatment combinations randomly administered to registered voters; however, the authors limited their study to single voter households to avoid interference among voters in the same household and thus only 72 treatment combinations are present in the subsetted data.
 Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the pre-treatment control covariates.
 
+These figures demonstrate the heterogeneity in voting outcome by both treatment type and control condition and motivate the need for a model that can detect causal effects in such an environment. 
 
 \begin{figure}[H]
     \centering
@@ -95,24 +87,11 @@ Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of t
     \label{fig:gerbergreencontrols}
 \end{figure}
 
-
-{\color{red} [[Add summary of main results from above visualizations]]}
-
 \subsection{LaLonde (1996) National Supported Work Study}
 
-Table~\ref{tab:LaLonde} provides a preview of the \texttt{LaLonde} dataset. This dataset includes one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
-Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975;
-\texttt{treat} is a binary treatment variable for whether an individual received the job training or not;
-\texttt{age} is an ordinal control for the age in years of workers;
-\texttt{educ} is an ordinal control for the years of education of workers;
-\texttt{black} is a binary control for whether the worker is black or not;
-\texttt{hisp} is a binary control for whether the worker is Hispanic or not;
-\texttt{white} is a binary control for whether the worker is white or not;
-\texttt{marr} is a binary control for whether the worker is married or not;
-\texttt{nodegr} is a binary control for whether the worker has a high school degree or not;
-\texttt{log.re75} is a continuous control for workers pre-treatment log earnings in 1975;
-\texttt{u75} is a binary control for whether the worker was unemployed in 1975 or not.
-%\texttt{wts.extrap}
+The \texttt{LaLonde} dataset one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
+Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975.
+The appendix includes a preview of \texttt{LaLonde} at Table~\ref{tab:LaLonde} as well as additional details on the covariates. 
 
 Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%), had larger earnings in 1978 compared to 1975.
 Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
@@ -120,7 +99,7 @@ Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had large
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figs/LaLondeTreatments.png}
+    \includegraphics[width=0.5\textwidth]{figs/LaLondeTreatments.png}
     \caption{Earnings Outcome by Treatment}
     \label{fig:lalondetreatments}
 \end{figure}
@@ -131,8 +110,6 @@ Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had large
     \caption{Earnings Outcome by Pre-Treatment Control}
     \label{fig:lalondecontrols}
 \end{figure}
-
-{\color{red} [[Add summary of main results from above visualizations]]}
 
 \section{Model and Methods Description}
 %Clearly describe the proposed model in the analysis. Outline the statistical estimation methods. For the proposed inference methods, provide an algorithm (e.g.,  with sufficient detail to implement the methods, using the input described in the Data Description section.
@@ -212,16 +189,50 @@ However, the CATE for groups of high earning Hispanic workers was as low as -21 
 
 \newpage
 \appendix
-\section{Appendix} Table~\ref{tab:GerberGreen} and Table~\ref{tab:LaLonde} provide previews of the analyzed datasets. 
+\renewcommand{\thetable}{A\arabic{table}}
+\section{Appendix} \hfill\newline
+
+Table~\ref{tab:GerberGreen} provides a preview of the \texttt{GerberGreen} dataset.
+\texttt{voted98} is a binary outcome variable of whether a registered voter voted or not in the 1998 election;
+\texttt{persngrp} is a binary treatment variable of whether a personal visit of a registered voter was made;
+\texttt{phnscrpt} is a categorical treatment variable with 7 levels (0 - no phone call, 1 - donate blood, 2 - civic appeal, 3 - civic appeal/donate blood, 4 - neighborhood solidarity, 5 - civic appeal/neighborhood solidarity, 6 - close election), for the phone message scripts read to registered voters;
+\texttt{mailings} is an ordinal treatment variable of the number (0-3) of mailings sent to voters;
+\texttt{appeal} is a categorical treatment variable with 3 levels (1 - civic duty, 2 - neighborhood solidarity, 3 - close election) for the content of the appeal made to registered voters;
+\texttt{age} is an ordinal control for the age of the registered voter;
+\texttt{majorpty} is a binary control for whether the registered voter was registered with either the Democratic or Republican part (1) or not (0);
+\texttt{vote96.1} is a binary control for whether the registered voter voted in the 1996 election; and
+\texttt{vote96.0} is a binary control for whether the registered voter abstained in the 1996 election.
 
 \input{tbls/GerberGreentbl.tex}
 
-\input{tbls/LaLondetbl.tex}
+Table~\ref{tab:GerberGreenTreatmentInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the four treatment variables present in \texttt{GerberGreen}. Note, in the original experiment design there were 193 unique treatment combinations randomly administered to registered voters; however, the authors limited their study to single voter households to avoid interference among voters in the same household and thus only 72 treatment combinations are present in the subsetted data.
 
 \input{tbls/GerberGreenTreatmentInteraction.tex}
 
+\newpage
+Table~\ref{tab:GerberGreenControlInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the pre-treatment control covariates.
+
 \input{tbls/GerberGreenControlInteraction.tex}
 
+\newpage
+
+
+Table~\ref{tab:LaLonde} provides a preview of the \texttt{LaLonde} dataset.
+This dataset includes one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
+Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975;
+\texttt{treat} is a binary treatment variable for whether an individual received the job training or not;
+\texttt{age} is an ordinal control for the age in years of workers;
+\texttt{educ} is an ordinal control for the years of education of workers;
+\texttt{black} is a binary control for whether the worker is black or not;
+\texttt{hisp} is a binary control for whether the worker is Hispanic or not;
+\texttt{white} is a binary control for whether the worker is white or not;
+\texttt{marr} is a binary control for whether the worker is married or not;
+\texttt{nodegr} is a binary control for whether the worker has a high school degree or not;
+\texttt{log.re75} is a continuous control for workers pre-treatment log earnings in 1975;
+\texttt{u75} is a binary control for whether the worker was unemployed in 1975 or not.
+%\texttt{wts.extrap}
+
+\input{tbls/LaLondetbl.tex}
 
 
 
