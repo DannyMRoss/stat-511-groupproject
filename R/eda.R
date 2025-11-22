@@ -337,14 +337,20 @@ dt[, log.re75_g := cut(log.re75, breaks = c(0,5:11), include.lowest = T, ordered
 levels(dt$log.re75_g)[1] <- "0"
 
 
-LaLondeControls <- function(){
-  graphics.off()
-  png(
-    "Report/figs/LaLondeControls.png",
+LaLondeControls <- function(
+    file = "Report/figs/LaLondeControls.png",
     width = 6.5,
     height = 4.5,
     units = "in",
     res = 1000
+){
+  graphics.off()
+  png(
+    file,
+    width = width,
+    height = height,
+    units = units,
+    res = res
   )
   par(
     mfrow = c(3, 3),
