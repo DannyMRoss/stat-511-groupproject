@@ -11,6 +11,15 @@
 \usepackage{float}
 \usepackage{xcolor}
 
+\usepackage{titlesec} 
+
+\titleformat{\section}[runin]
+  {\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[runin]
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
 \title{\textbf{STAT 511 Group Project}}
 \author{Chengyuan $\diamond$ Daniel $\diamond$ Junjie}
 
@@ -25,8 +34,18 @@
 \newcommand{\hte}{heterogeneous treatment effects}
 
 \begin{document}
-\maketitle
+\begin{titlepage}
+  \clearpage\maketitle
+  \thispagestyle{empty}
+  
+  \begin{center}
+  	\textbf{Author Contributions} 
+  \end{center}
+  
+  \textbf{Chengyuan}: \ldots \textbf{Daniel}: \ldots \textbf{Junjie} \ldots
+\end{titlepage}
 
+\setcounter{page}{1}
 \section{Problem Description and Modeling Objective}
 %Provide a clear statement of the problem being investigated in the paper. Clearly state the specific objective of the statistical modeling.
 
@@ -186,13 +205,14 @@ However, the CATE for groups of high earning Hispanic workers was as low as -21 
 \section{Conclusion}
 
 % Bibliography ----------------------
+\newpage
 \bibliographystyle{plain}
 \bibliography{../bibliography}
 
 
 \newpage
 \appendix
-\section{Appendix}
+\section{Appendix} Table~\ref{tab:GerberGreen} and Table~\ref{tab:LaLonde} provide previews of the analyzed datasets. 
 
 \input{tbls/GerberGreentbl.tex}
 
