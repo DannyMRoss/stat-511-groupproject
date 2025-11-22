@@ -1,8 +1,11 @@
+# packages ----
 library(FindIt)
 library(kableExtra)
 library(scales)
 library(data.table)
 
+# helper functions ----
+## fcn to format dataset for preview tables
 tbl.prev <- function(df, n = 3, digits = 2){
   tblh <- head(df, n)
   tblt <- tail(df, n)
@@ -15,6 +18,7 @@ tbl.prev <- function(df, n = 3, digits = 2){
   return(tbl)
 }
 
+## fcn for two-way barplots for outcome by treatment or control
 two.way.bp <- function(
     df,
     x = "persngrp",
@@ -82,6 +86,7 @@ two.way.bp <- function(
 }
 
 # GerberGreen ----
+## preview table ----
 GerberGreen.tbl <- tbl.prev(GerberGreen)
 
 k <- kbl(
@@ -100,6 +105,7 @@ k <- kbl(
 
 save_kable(k, file = "Report/tbls/GerberGreentbl.tex")
 
+## ... prep for interaction tables ...
 phnscrpt.labels <- c("None","Civic-Blood","Civic","Civic or Blood-Civic", "Neighbor","Neighbor or Civic-Neighbor","Close")
 appeal.labels <- c("Civic Duty", "Neighborhood Solidarity","Close Election")
 persngrp.labels <- c("No","Yes")
@@ -122,6 +128,7 @@ B <- dt[,.("Registered" = .N, "Voted" = sum(voted98)), keyby = controls]
 B[, `Proportion` := percent(Voted / `Registered`,.1)]
 setnames(B, controls, c("Age","Major Party","Voted in '96","Abstained in '96"))
 
+## treatment interaction table ----
 k <- kbl(
   A,
   row.names = TRUE,
@@ -138,6 +145,7 @@ k <- kbl(
 
 save_kable(k, file = "Report/tbls/GerberGreenTreatmentInteraction.tex")
 
+## control interaction table ----
 k <- kbl(
   B,
   row.names = TRUE,
@@ -154,6 +162,7 @@ k <- kbl(
 
 save_kable(k, file = "Report/tbls/GerberGreenControlInteraction.tex")
 
+## treatment barplot ----
 GerberGreenTreatments <- function(
     file = "Report/figs/GerberGreenTreatments.png",
     width = 6.5,
@@ -205,6 +214,7 @@ GerberGreenTreatments <- function(
 
 GerberGreenTreatments(height = 3.5)
 
+## control barplot ----
 GerberGreenControls <- function(
     file = "Report/figs/GerberGreenControls.png",
     width = 6.5,
@@ -257,6 +267,7 @@ GerberGreenControls <- function(
 GerberGreenControls(height = 3.5)
 
 # LaLonde ----
+## preview table ----
 LaLonde$wts.extrap <- NULL
 
 LaLonde.tbl <- tbl.prev(LaLonde)
@@ -278,6 +289,7 @@ k <- kbl(
 
 save_kable(k, file = "Report/tbls/LaLondetbl.tex")
 
+## in text stats ----
 nrow(LaLonde)
 table(LaLonde$outcome)
 prop.table(table(LaLonde$outcome))
@@ -285,6 +297,7 @@ prop.table(table(LaLonde$outcome))
 table(LaLonde$outcome, LaLonde$treat)
 prop.table(table(LaLonde$outcome, LaLonde$treat))
 
+## treatment barplot
 LaLondeTreatments <- function(
     file = "Report/figs/LaLondeTreatments.png",
     width = 3.5,
@@ -329,6 +342,7 @@ LaLondeTreatments <- function(
 
 LaLondeTreatments()
 
+## ... prep for control barplot ....
 dt <- copy(LaLonde)
 setDT(dt)
 dt[, age_g := cut(age, breaks = c(17,22,27,32,37,42,47,52,57), include.lowest = T, ordered_result = T)]
@@ -336,7 +350,7 @@ dt[, educ_g := cut(educ, breaks = c(3,6,9,12,16), include.lowest = T, ordered_re
 dt[, log.re75_g := cut(log.re75, breaks = c(0,5:11), include.lowest = T, ordered_result = T)]
 levels(dt$log.re75_g)[1] <- "0"
 
-
+## control barplot ----
 LaLondeControls <- function(
     file = "Report/figs/LaLondeControls.png",
     width = 6.5,
