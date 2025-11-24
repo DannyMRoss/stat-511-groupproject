@@ -45,7 +45,7 @@
   	\textbf{Author Contributions} 
   \end{center}
   
-  \textbf{Chengyuan}: Reproducing results, simulation study, conclusion \textbf{Daniel}: Exploratory data analysis, report writing \textbf{Junjie} Estimating algorithm
+  \textbf{Chengyuan}: Simulation study, \ldots \textbf{Daniel}: Exploratory data analysis, report writing, \ldots \textbf{Junjie} Model and methods description, \ldots
 \end{titlepage}
 
 \setcounter{page}{1}
@@ -77,6 +77,20 @@ Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of t
 
 These figures demonstrate the heterogeneity in voting outcome by both treatment type and control condition and motivate the need for a model that can detect causal effects in such an environment. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/GerberGreenTreatments.png}
+    \caption{Voting Outcome by Treatment Type}
+    \label{fig:gerbergreentreatments}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/GerberGreenControls.png}
+    \caption{Voting Outcome by Pre-Treatment Control}
+    \label{fig:gerbergreencontrols}
+\end{figure}
+
 \subsection{LaLonde (1996) National Supported Work Study}
 
 The \texttt{LaLonde} dataset one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
@@ -86,6 +100,20 @@ The appendix includes a preview of \texttt{LaLonde} at Table~\ref{tab:LaLonde} a
 Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%), had larger earnings in 1978 compared to 1975.
 Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
 Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had larger earnings by the levels of each of the pre-treatment controls.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/LaLondeTreatments.png}
+    \caption{Earnings Outcome by Treatment}
+    \label{fig:lalondetreatments}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/LaLondeControls.png}
+    \caption{Earnings Outcome by Pre-Treatment Control}
+    \label{fig:lalondecontrols}
+\end{figure}
 
 \section{Model and Methods Description}
 %Clearly describe the proposed model in the analysis. Outline the statistical estimation methods. For the proposed inference methods, provide an algorithm (e.g.,  with sufficient detail to implement the methods, using the input described in the Data Description section.
@@ -319,13 +347,15 @@ However, the CATE for groups of high earning Hispanic workers was as low as -21 
 
 \section{Conclusion}
 
-This project has successfully reproduced and extended the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the GerberGreen and LaLonde datasets, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
+This project has successfully reproduced the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the GerberGreen and LaLonde datasets using the FindIt R package, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
 
-Our key findings include: (1) the successful reproduction of the factorial design analysis for the GerberGreen dataset, confirming that personal visits are the most effective mobilization strategy, with estimated effects consistent with the paper's findings; (2) the reproduction of the LaLonde analysis, obtaining an ATE estimate of 6.27 percentage points that is qualitatively consistent with the paper's estimate of 7.61 percentage points, though our simplified covariate specification may not capture the full heterogeneity identified in the original study; and (3) a supplementary simulation study (presented in the Appendix) that reveals important limitations of the method when applied to scenarios with homogeneous treatment effects.
+Our key findings from reproducing the paper's results include: (1) the successful implementation of the factorial design analysis for the GerberGreen dataset, which confirms that personal visits are the most effective mobilization strategy, with estimated effects (ranging from 2.45 to 3.26 percentage points) consistent with the paper's findings (2.69 percentage points); (2) the reproduction of the LaLonde analysis, obtaining an ATE estimate of 6.27 percentage points that is qualitatively consistent with the paper's estimate of 7.61 percentage points, demonstrating the robustness of the method's findings despite differences in covariate specification; and (3) the identification of 20 nonzero treatment coefficients in GerberGreen and 8 nonzero coefficients in LaLonde, showing that the method successfully identifies treatment effects and interactions in real-world datasets.
 
-The reproduction results demonstrate that the FindIt method successfully identifies treatment effects in real-world datasets when appropriately specified. The factorial design approach works well for the GerberGreen dataset with multiple treatment factors, while the single treatment type with interactions approach captures average treatment effects in the LaLonde dataset. The supplementary simulation study in the Appendix highlights that the method's performance depends critically on matching the specification to the data structure: homogeneous effects scenarios may require different approaches than heterogeneous effects scenarios.
+The reproduction results demonstrate that the FindIt method successfully identifies treatment effects in real-world datasets when appropriately specified. The factorial design approach with \texttt{treat.type = "multiple"} works well for the GerberGreen dataset with multiple treatment factors, generating all treatment-treatment interactions and identifying the most effective treatment combinations. The single treatment type with interactions approach captures average treatment effects in the LaLonde dataset, though our simplified covariate specification (3 covariates versus the paper's 44 covariates) may not capture the full heterogeneity identified in the original study. This highlights the importance of comprehensive covariate selection in identifying treatment effect heterogeneity.
 
-Future research directions include: exploring more comprehensive covariate specifications to better capture treatment effect heterogeneity, investigating the sensitivity of results to lambda selection methods, and comparing performance across different datasets and application domains. Additionally, further work could investigate the generalizability of these findings and develop guidelines for choosing appropriate FindIt specifications based on data characteristics.
+As a supplementary analysis, we also conducted a simulation study with homogeneous treatment effects (presented in the Appendix), which reveals that the method's performance depends critically on matching the specification to the data structure. This finding emphasizes the importance of understanding the underlying assumptions of the method and choosing appropriate specifications based on the data characteristics.
+
+Future research directions include: exploring more comprehensive covariate specifications to better capture treatment effect heterogeneity, investigating the sensitivity of results to lambda selection methods, comparing performance across different datasets and application domains, and developing guidelines for choosing appropriate FindIt specifications based on data characteristics.
 
 % Bibliography ----------------------
 \newpage
@@ -337,7 +367,6 @@ Future research directions include: exploring more comprehensive covariate speci
 \newpage
 \appendix
 \renewcommand{\thetable}{A\arabic{table}}
-\renewcommand{\thefigure}{A\arabic{figure}}
 \section{Appendix} \hfill\newline
 
 \subsection{Homogeneous Treatment Effects Simulation Study}
@@ -485,22 +514,6 @@ Table~\ref{tab:GerberGreen} provides a preview of the \texttt{GerberGreen} datas
 % Table file not available - placeholder
 
 Table~\ref{tab:GerberGreenTreatmentInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the four treatment variables present in \texttt{GerberGreen}. Note, in the original experiment design there were 193 unique treatment combinations randomly administered to registered voters; however, the authors limited their study to single voter households to avoid interference among voters in the same household and thus only 72 treatment combinations are present in the subsetted data.
-Figure~\ref{fig:gerbergreentreatments} provides the proportion that voted in the 1998 election by the levels of each of the four treatment types.
-Whereas, Figure~\ref{fig:gerbergreencontrols} provides the proportion that voted in the 1998 election by the levels of each of the four pre-treatment controls.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/GerberGreenTreatments.png}
-    \caption{Voting Outcome by Treatment Type}
-    \label{fig:gerbergreentreatments}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/GerberGreenControls.png}
-    \caption{Voting Outcome by Pre-Treatment Control}
-    \label{fig:gerbergreencontrols}
-\end{figure}
 
 % \input{tbls/GerberGreenTreatmentInteraction.tex}
 % Table file not available - placeholder
@@ -532,22 +545,6 @@ Specifically, \texttt{outcome} is a binary outcome variable of whether earnings 
 % \input{tbls/LaLondetbl.tex}
 % Table file not available - placeholder
 
-Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
-Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had larger earnings by the levels of each of the pre-treatment controls.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figs/LaLondeTreatments.png}
-    \caption{Earnings Outcome by Treatment}
-    \label{fig:lalondetreatments}
-\end{figure}
-
-\begin{figure}[p]
-    \centering
-    \includegraphics[width=\textwidth]{figs/LaLondeControls.png}
-    \caption{Earnings Outcome by Pre-Treatment Control}
-    \label{fig:lalondecontrols}
-\end{figure}
 
 
 \end{document}
