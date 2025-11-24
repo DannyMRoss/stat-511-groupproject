@@ -255,6 +255,132 @@ obtain the final L2-SVM fit.
 
 \section{Reproducing Results}
 
+In this section, we reproduce the simulation study from the paper to evaluate the performance of the FindIt method in identifying treatment effect heterogeneity. Following the paper's approach in Section 4.1, we conduct a simplified simulation study to assess the method's ability to identify the best treatments from multiple alternatives.
+
+\subsection{Simulation Setup}
+
+We design a simplified simulation study based on the paper's setup for identifying best treatments from multiple alternatives. Our simulation parameters are chosen to be computationally feasible while maintaining the key features of the original study.
+
+\subsubsection{Data Generating Process}
+
+We generate simulated data with the following characteristics:
+\begin{itemize}
+    \item \textbf{Number of treatments}: $K = 10$ active treatments plus one control group (treatment 0), for a total of 11 treatment levels.
+    \item \textbf{Number of covariates}: $L_V = 3$ pre-treatment covariates, each generated from a standard normal distribution: $V_i \sim \mathcal{N}(0, 1)$.
+    \item \textbf{Sample sizes}: We consider three sample sizes: $n \in \{500, 1000, 2000\}$.
+    \item \textbf{Replications}: For each sample size, we conduct $R = 100$ independent replications.
+\end{itemize}
+
+The true treatment effects are specified as follows:
+\begin{itemize}
+    \item Treatment 1: $\beta_1 = 0.07$ (largest positive effect, 7 percentage points)
+    \item Treatment 2: $\beta_2 = 0.05$ (second largest positive effect, 5 percentage points)
+    \item Treatment 3: $\beta_3 = -0.03$ (largest negative effect, -3 percentage points)
+    \item Treatments 4--10: $\beta_j \sim \text{Uniform}(-0.01, 0.01)$ (negligible effects, approximately $\pm 1$ percentage point)
+\end{itemize}
+
+The covariate effects are set to $\gamma = (0.5, -0.3, 0.3)^\top$, representing substantial predictive power of the pre-treatment covariates.
+
+The data generating process follows a linear probability model:
+\begin{align}
+    \text{linear predictor} &= \mu + Z_i^\top \beta + V_i^\top \gamma \\
+    P(Y_i = 1) &= \Phi(\text{linear predictor})
+\end{align}
+where $\mu = 0.4$ is the baseline intercept, $Z_i$ is a vector of treatment indicators, $V_i$ is the vector of covariates, and $\Phi(\cdot)$ is the standard normal cumulative distribution function. The binary outcome $Y_i$ is then generated as $Y_i \sim \text{Bernoulli}(P(Y_i = 1))$.
+
+Treatment assignment is random and independent of covariates: each unit is randomly assigned to one of the 11 treatment levels (0--10) with equal probability.
+
+\subsubsection{Model Fitting}
+
+For each simulated dataset, we fit the FindIt model using the \texttt{FindIt} package in R. Due to computational constraints and the structure of our simulation (multiple binary treatment indicators rather than factorial treatment factors), we use the single treatment type specification:
+\begin{align}
+    \text{model.treat} &: \quad Y \sim \text{treatment} \\
+    \text{model.main} &: \quad \sim V_1 + V_2 + V_3 \\
+    \text{model.int} &: \quad \sim V_1 + V_2 + V_3
+\end{align}
+where treatment is coded as a multi-valued factor (0--10), and we allow for treatment-covariate interactions.
+
+We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to allow the method to choose optimal tuning parameters via generalized cross-validation (GCV) for each replication.
+
+\subsubsection{Evaluation Metrics}
+
+Following the paper's evaluation framework, we assess the method's performance using two metrics:
+
+\begin{enumerate}
+    \item \textbf{Discovery Rate (DR)}: The proportion of replications in which the method correctly identifies the treatment with the largest effect (or the top 3 treatments with the largest effects) with the correct sign.
+    \item \textbf{False Discovery Rate (FDR)}: The proportion of replications in which the method fails to correctly identify the largest effect (or top 3 effects) but still reports at least one nonzero treatment coefficient.
+\end{enumerate}
+
+Specifically, for each replication $r$:
+\begin{itemize}
+    \item \textbf{DR(largest)}: Indicator that the estimated largest effect (among nonzero coefficients) matches the true largest effect (treatment 1) with correct sign.
+    \item \textbf{DR(top 3)}: Indicator that at least 2 of the top 3 estimated effects match the true top 3 effects (treatments 1, 2, 3) with correct signs.
+    \item \textbf{FDR(largest)}: $1 - \text{DR(largest)}$ when at least one treatment coefficient is nonzero.
+    \item \textbf{FDR(top 3)}: $1 - \text{DR(top 3)}$ when at least one treatment coefficient is nonzero.
+\end{itemize}
+
+\subsection{Simulation Results}
+
+Table~\ref{tab:simulation_results} presents the simulation results across the three sample sizes. The results show that the FindIt method achieves low discovery rates across all sample sizes, with DR(largest) ranging from 0.01 to 0.02 and DR(top 3) ranging from 0.01 to 0.02.
+
+\begin{table}[H]
+\centering
+\caption{Simulation Results: Discovery Rate (DR) and False Discovery Rate (FDR)}
+\label{tab:simulation_results}
+\begin{tabular}{lcccc}
+\toprule
+Sample Size & DR(largest) & FDR(largest) & DR(top 3) & FDR(top 3) \\
+\midrule
+$n = 500$   & 0.010 & 0.958 & 0.020 & 0.917 \\
+$n = 1000$  & 0.010 & 0.955 & 0.020 & 0.909 \\
+$n = 2000$  & 0.020 & 0.926 & 0.010 & 0.963 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The results indicate that the method struggles to correctly identify the largest treatment effects in this simulation setup. The discovery rates are consistently low (around 1--2\%) across all sample sizes, suggesting that the method is not effectively distinguishing between treatments with substantial effects and those with negligible effects.
+
+\subsection{Discussion and Limitations}
+
+The low discovery rates observed in our simulation study can be attributed to several factors:
+
+\subsubsection{Methodological Limitations}
+
+First, the FindIt method with \texttt{treat.type = "single"} is designed to identify \emph{heterogeneous} treatment effects---that is, treatment effects that vary across different covariate profiles. However, our simulation setup assumes \emph{homogeneous} treatment effects---each treatment has a fixed effect that does not depend on covariates. This mismatch between the method's assumptions and the simulation's data generating process may explain the poor performance.
+
+Specifically, the single treatment type specification models treatment effects through treatment-covariate interactions:
+\begin{align}
+    W_i = \mu + \beta_0 \cdot \text{treatment}_i + \sum_{j=1}^{L_V} \beta_j \cdot (\text{treatment}_i \times V_{ij}) + \sum_{j=1}^{L_V} \gamma_j V_{ij}
+\end{align}
+where the main treatment effect $\beta_0$ may be shrunk to zero by the LASSO penalty, leaving only interaction terms. In our simulation, where treatment effects are homogeneous (do not depend on covariates), these interaction terms may not capture the true treatment effects effectively.
+
+\subsubsection{Computational Constraints}
+
+Second, our simulation uses a simplified setup compared to the paper's original study. The paper's simulation (Section 4.1) uses 49 treatments and more complex data generating processes. Our simplified version with 10 treatments may not fully capture the method's performance characteristics.
+
+Additionally, we use automatic lambda selection for each replication, which is computationally intensive. While this ensures optimal tuning parameters for each dataset, it may also introduce variability in the results across replications.
+
+\subsubsection{Evaluation Challenges}
+
+Third, extracting treatment-specific effects from the FindIt output with \texttt{treat.type = "single"} is challenging. The method's \texttt{predict()} function returns conditional treatment effects that depend on each unit's covariate values. We average these effects across units within each treatment group to obtain treatment-level effects, but this averaging may not accurately reflect the true homogeneous effects in our simulation.
+
+\subsubsection{Comparison with Paper}
+
+The paper's simulation results (Figure 1) show that the method achieves higher discovery rates, particularly for larger sample sizes. However, the paper's simulation uses a factorial treatment design with \texttt{treat.type = "multiple"}, which is better suited for identifying treatment-treatment interactions and main effects. Our simulation's use of single treatment type may explain the discrepancy in performance.
+
+\subsection{Conclusion}
+
+Our simulation study demonstrates the challenges of applying the FindIt method to scenarios with homogeneous treatment effects when using the single treatment type specification. While the method is designed for heterogeneous effects, our simulation shows that it struggles to identify treatments with homogeneous but substantial effects.
+
+These results highlight the importance of matching the method's assumptions to the data structure. For scenarios with homogeneous treatment effects, alternative methods or different FindIt specifications (such as multiple treatment type with factorial designs) may be more appropriate.
+
+Future work could explore:
+\begin{itemize}
+    \item Using \texttt{treat.type = "multiple"} with factorial treatment designs to better match the paper's approach.
+    \item Adjusting the evaluation metrics to account for the method's focus on heterogeneous effects.
+    \item Comparing performance across different simulation setups to better understand the method's strengths and limitations.
+\end{itemize}
+
 \section{Results}
 
 \subsection{Selecting the best get-out-the-vote mobilization strategies}
@@ -287,6 +413,14 @@ However, the CATE for groups of high earning Hispanic workers was as low as -21 
 
 
 \section{Conclusion}
+
+This project has successfully reproduced and extended the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the GerberGreen and LaLonde datasets, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
+
+Our key findings include: (1) the successful implementation of the factorial design for the GerberGreen dataset, confirming that personal visits are the most effective mobilization strategy; (2) the identification of heterogeneous treatment effects in the LaLonde dataset, showing that the job training program benefits certain subgroups (low education, non-Hispanic, high earning workers) while potentially harming others (high earning Hispanic workers); and (3) the completion of a simulation study that reveals important limitations of the method when applied to scenarios with homogeneous treatment effects.
+
+The simulation study highlights a critical insight: the FindIt method with single treatment type specification is designed for heterogeneous effects, and its performance may be limited when treatment effects are homogeneous across units. This finding emphasizes the importance of matching methodological assumptions to the data structure and suggests that alternative specifications (such as multiple treatment type with factorial designs) may be more appropriate for certain scenarios.
+
+Future research directions include: exploring the use of multiple treatment type specifications in simulation studies, developing more sophisticated evaluation metrics that account for the method's focus on heterogeneous effects, and comparing performance across different simulation setups to better understand the method's strengths and limitations. Additionally, further work could investigate the generalizability of these findings to other datasets and application domains.
 
 % Bibliography ----------------------
 \newpage

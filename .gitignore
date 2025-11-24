@@ -1,3 +1,18 @@
 .DS_Store
 .Rproj.user
 .Rhistory
+*.aux
+*.log
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.pdf
+!Group\ Project.pdf
+!FindIt.pdf
+!Imai-ESTIMATINGTREATMENTEFFECT-2013.pdf
+!Proposal/Proposal.pdf
+!Report/Report.pdf
+# Include simulation results for reproducibility
+!reproduction/*.RData
