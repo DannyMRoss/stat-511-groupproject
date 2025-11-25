@@ -1,6 +1,6 @@
 # Reproduction Code
 
-This folder contains all code for reproducing the results in the report.
+This folder contains all code for reproducing the results in the report. Claude Sonnet 4.5 with Cursor AI was used to assist in code writing.
 
 ## Files
 
