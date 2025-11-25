@@ -1,0 +1,44 @@
+\begin{algorithm}[htbp]
+\tiny
+\caption{\footnotesize GCV-Based Selection of $(\lambda_Z,\lambda_V)$}
+\label{alg:gcv-tuning}
+\begin{algorithmic}[1]
+\tiny
+\REQUIRE $Y_i^*$, $Z_i, V_i, \omega_i$; grids $\mathcal{G}_Z, \mathcal{G}_V$
+\ENSURE Selected $(\hat\lambda_Z,\hat\lambda_V)$ and final $(\hat\mu,\hat\beta,\hat\gamma)$
+\STATE Initialize $\lambda_Z^{(0)}$ to a large value (e.g., $e^{10}$).
+
+\STATE Set iteration counter $m \gets 0$.
+\REPEAT
+    \STATE $m \gets m + 1$.
+    
+    \COMMENT{(a) Line search over $\lambda_V$ given $\lambda_Z^{(m-1)}$}
+    \FORALL {$\lambda_V \in \mathcal{G}_V$}
+        \STATE  Fit the L2-SVM with $(\lambda_Z^{(m-1)},\lambda_V)$ using Algorithm~\ref{alg:fit-svm-lasso} and get $(\mu,\beta,\gamma,\{W_i\})$.
+        \STATE $A \gets \{ i : 1 > Y_i^* W_i \}$ and $a \gets |A|$.
+        \STATE $\ell \gets \|\beta\|_0 + \|\gamma\|_0$.
+        \STATE $\text{RSS} \gets \sum_{i\in A}\omega_i (Y_i^* - W_i)^2$.
+        \STATE $\text{GCV}(\lambda_Z^{(m-1)},\lambda_V) \gets \dfrac{\text{RSS}/a}{(1 - \ell/a)^2}$.
+    \ENDFOR
+    \STATE $\lambda_V^{(m)} \gets \arg\min_{\lambda_V\in\mathcal{G}_V} \text{GCV}(\lambda_Z^{(m-1)},\lambda_V)$.
+    
+    \COMMENT{(b) Line search over $\lambda_Z$ given $\lambda_V^{(m)}$}
+    \FORALL {$\lambda_Z \in \mathcal{G}_Z$}
+        \STATE Fit the L2-SVM with $(\lambda_Z,\lambda_V^{(m)})$ using Algorithm~\ref{alg:fit-svm-lasso} and get $(\mu,\beta,\gamma,\{W_i\})$.
+        \STATE $A \gets \{ i : 1 > Y_i^* W_i \}$ and $a \gets |A|$.
+        \STATE $\ell \gets \|\beta\|_0 + \|\gamma\|_0$.
+        \STATE $\text{RSS} \gets \sum_{i\in A}\omega_i (Y_i^* - W_i)^2$.
+        \STATE $\text{GCV}(\lambda_Z,\lambda_V^{(m)}) \gets \dfrac{\text{RSS}/a}{(1 - \ell/a)^2}$.
+    \ENDFOR
+    \STATE $\lambda_Z^{(m)} \gets \arg\min_{\lambda_Z\in\mathcal{G}_Z} \text{GCV}(\lambda_Z,\lambda_V^{(m)})$.
+    \STATE $m \gets m + 1$.
+    
+\UNTIL{convergence of $(\lambda_Z^{(m)},\lambda_V^{(m)})$}
+\STATE Optionally refine the search with finer grids around $(\lambda_Z^{(m)},\lambda_V^{(m)})$.
+
+\STATE Set $\hat\lambda_Z \gets \lambda_Z^{(m)}$, $\hat\lambda_V \gets \lambda_V^{(m)}$.
+\STATE Fit the L2-SVM with $(\hat\lambda_Z,\hat\lambda_V)$ using Algorithm~\ref{alg:fit-svm-lasso} and get $(\hat\mu,\hat\beta,\hat\gamma)$.
+
+\STATE \textbf{return} $(\hat\mu,\hat\beta,\hat\gamma,\hat\lambda_Z,\hat\lambda_V)$.
+\end{algorithmic}
+\end{algorithm}

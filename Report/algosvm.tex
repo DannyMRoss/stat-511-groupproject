@@ -1,0 +1,47 @@
+\begin{algorithm}[htbp]
+\tiny
+\caption{\footnotesize Fit L2-SVM with Double LASSO for Given $(\lambda_Z,\lambda_V)$}
+\label{alg:fit-svm-lasso}
+\begin{algorithmic}[1]
+\tiny
+\REQUIRE Observations $\{(Y_i, Z_i, V_i, \omega_i)\}_{i=1}^N$, weights $\omega_i$, tuning parameters $(\lambda_Z,\lambda_V)$
+\ENSURE Estimated $(\mu,\beta,\gamma)$ and scores $W_i$
+\STATE Define $Y_i^* \gets 2Y_i - 1$ for all $i$.
+
+\vspace{1\baselineskip}
+
+\COMMENT{Rescaling the covariates:}
+\STATE Rescale covariates in $V_i$ by standardizing all pre-treatment main-effect variables.
+\STATE Recompute any higher-order terms and covariate interactions in $V_i$ using the standardized covariates.
+\STATE Keep treatment indicator variables (treatment dummies) in $Z_i$ unstandardized.
+\STATE Construct treatment-covariate interactions in $Z_i$ as the product of the unstandardized treatment indicator and the standardized covariate.
+
+\vspace{1\baselineskip}
+
+\COMMENT{Iterative fitting given $(\lambda_Z,\lambda_V)$:}
+\STATE Define the reparameterized coefficients and covariates:
+       $\tilde{\beta} = \lambda_Z \beta$, $\tilde{\gamma} = \lambda_V \gamma$,
+       $\tilde{Z}_i = Z_i / \lambda_Z$ and $\tilde{V}_i = V_i / \lambda_V$.
+\STATE Initialize $\mu^{(0)} = 0$, $\beta^{(0)} = 0$, $\gamma^{(0)} = 0$ and $W_i^{(0)} = 0$ for all $i$.
+\REPEAT
+    \STATE Define the active set $\mathcal{A}^{(k)} = \{ i : 1 > Y_i^* W_i^{(k)} \}$ and let $a^{(k)} = |\mathcal{A}^{(k)}|$.
+    \STATE Compute $\tilde{Z}_i^{(k)}$, $\tilde{V}_i^{(k)}$ and $Y_i^{(k)}$ as the centered versions of $\tilde{Z}_i$, $\tilde{V}_i$ and $Y_i^*$ respectively, using only the observations in the current active set $\mathcal{A}^{(k)}$.
+    \STATE Find $ \left(\tilde{\beta}^{(k)}, \tilde{\gamma}^{(k)}\right)$ by minimizing
+    \STATE \hspace{1em}
+           $\frac{1}{a^{(k)}} \sum_{i \in \mathcal{A}^{(k)}}\left(Y_i^{(k)}-\tilde{\beta}^{\top} \tilde{Z}_i^{(k)}-\tilde{\gamma}^{\top} \tilde{V}_i^{(k)}\right)^2+\sum_{j=1}^{L_Z}\left|\tilde{\beta}_j\right|+\sum_{j=1}^{L_V}\left|\tilde{\gamma}_j\right| $.
+    \STATE Update the intercept:
+    \STATE \hspace{1em}
+           $\hat{\mu}^{(k)}=\frac{1}{a^{(k)}} \sum_{i \in \mathcal{A}^{(k)}}\left(Y_i^*-\tilde{\beta}^{(k)^{\top}} \tilde{Z}_i-\tilde{\gamma}^{(k)^{\top}} \tilde{V}_i\right)$.
+    \STATE Update the scores for all $i = 1,\dots,N$:
+    \STATE \hspace{1em}
+           $\widehat{W}_i^{(k)}=\hat{\mu}^{(k)}+\tilde{\beta}^{(k)^{\top}} \tilde{Z}_i+\tilde{\gamma}^{(k)^{\top}} \tilde{V}_i$.
+\UNTIL{convergence of $(\mu^{(k)},\beta^{(k)},\gamma^{(k)})$ or the active set $\mathcal{A}^{(k)}$}
+\STATE Recover the original coefficients:
+       $\hat\beta = \beta^{(k)} / \lambda_Z$ and
+       $\hat\gamma = \gamma^{(k)} / \lambda_V$.
+
+\vspace{1\baselineskip}
+
+\STATE \textbf{return} $(\mu,\beta,\gamma,\{W_i\}_{i=1}^N)$.
+\end{algorithmic}
+\end{algorithm}

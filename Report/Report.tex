@@ -13,6 +13,8 @@
 \usepackage{titlesec} 
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tocloft} 
 
 \renewcommand{\algorithmiccomment}[1]{// \textit{#1}}
 
@@ -26,27 +28,40 @@
 \title{\textbf{STAT 511 Group Project}}
 \author{Chengyuan $\diamond$ Daniel $\diamond$ Junjie}
 
-\pagestyle{fancy}
 \fancyhf{}
 \fancyhead[R]{Chengyuan $\diamond$ Daniel $\diamond$ Junjie}
 \fancyhead[L]{STAT 511 $\diamond$ Group Project}
 \fancyfoot[C]{\thepage}
 \setlength{\headheight}{15pt}
 
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
 \newcommand{\teh}{treatment effect heterogeneity}
 \newcommand{\hte}{heterogeneous treatment effects}
 
 \begin{document}
+
 \begin{titlepage}
-  \clearpage\maketitle
-  \thispagestyle{empty}
+  \maketitle
+  \tableofcontents
+  \listoffigures
+  \listoftables
+  
+  \vspace{1em}
   
   \begin{center}
-  	\textbf{Author Contributions} 
+  	\textbf{\large Author Contributions} 
   \end{center}
   
-  \textbf{Chengyuan}: Simulation study, \ldots \textbf{Daniel}: Exploratory data analysis, report writing, \ldots \textbf{Junjie} Model and methods description, \ldots
+  \textbf{Chengyuan}: reproducing results, simulation study \textbf{Daniel}: report writing, exploratory data analysis \textbf{Junjie} estimating algorithms.
+  
 \end{titlepage}
+
+\pagestyle{fancy}
 
 \setcounter{page}{1}
 \section{Problem Description and Modeling Objective}
@@ -77,43 +92,15 @@ Finally, Table~\ref{tab:GerberGreenControlInteraction} provides a breakdown of t
 
 These figures demonstrate the heterogeneity in voting outcome by both treatment type and control condition and motivate the need for a model that can detect causal effects in such an environment. 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/GerberGreenTreatments.png}
-    \caption{Voting Outcome by Treatment Type}
-    \label{fig:gerbergreentreatments}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/GerberGreenControls.png}
-    \caption{Voting Outcome by Pre-Treatment Control}
-    \label{fig:gerbergreencontrols}
-\end{figure}
-
 \subsection{LaLonde (1996) National Supported Work Study}
 
-The \texttt{LaLonde} dataset one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
+The \texttt{LaLonde} dataset includes one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
 Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975.
 The appendix includes a preview of \texttt{LaLonde} at Table~\ref{tab:LaLonde} as well as additional details on the covariates. 
 
 Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%), had larger earnings in 1978 compared to 1975.
 Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
 Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had larger earnings by the levels of each of the pre-treatment controls.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figs/LaLondeTreatments.png}
-    \caption{Earnings Outcome by Treatment}
-    \label{fig:lalondetreatments}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figs/LaLondeControls.png}
-    \caption{Earnings Outcome by Pre-Treatment Control}
-    \label{fig:lalondecontrols}
-\end{figure}
 
 \section{Model and Methods Description}
 %Clearly describe the proposed model in the analysis. Outline the statistical estimation methods. For the proposed inference methods, provide an algorithm (e.g.,  with sufficient detail to implement the methods, using the input described in the Data Description section.
@@ -155,52 +142,7 @@ For fixed tuning parameters $(\lambda_Z,\lambda_V)$, the covariates are first re
 At each iteration, the covariates and the transformed outcome are centered within the current active set, the LASSO coefficients are updated using a least squares criterion with $\ell_1$ penalties, and the fitted values and the active set are recomputed. 
 This procedure is repeated until the coefficients converge, yielding the final estimates $(\mu,\beta,\gamma)$ and scores $W_i$.
 
-\begin{algorithm}[htbp]
-\caption{Fit L2-SVM with Double LASSO for Given $(\lambda_Z,\lambda_V)$}
-\label{alg:fit-svm-lasso}
-\begin{algorithmic}[1]
-\REQUIRE Observations $\{(Y_i, Z_i, V_i, \omega_i)\}_{i=1}^N$, weights $\omega_i$, tuning parameters $(\lambda_Z,\lambda_V)$
-\ENSURE Estimated $(\mu,\beta,\gamma)$ and scores $W_i$
-\STATE Define $Y_i^* \gets 2Y_i - 1$ for all $i$.
-
-\vspace{1\baselineskip}
-
-\COMMENT{Rescaling the covariates:}
-\STATE Rescale covariates in $V_i$ by standardizing all pre-treatment main-effect variables.
-\STATE Recompute any higher-order terms and covariate interactions in $V_i$ using the standardized covariates.
-\STATE Keep treatment indicator variables (treatment dummies) in $Z_i$ unstandardized.
-\STATE Construct treatment-covariate interactions in $Z_i$ as the product of the unstandardized treatment indicator and the standardized covariate.
-
-\vspace{1\baselineskip}
-
-\COMMENT{Iterative fitting given $(\lambda_Z,\lambda_V)$:}
-\STATE Define the reparameterized coefficients and covariates:
-       $\tilde{\beta} = \lambda_Z \beta$, $\tilde{\gamma} = \lambda_V \gamma$,
-       $\tilde{Z}_i = Z_i / \lambda_Z$ and $\tilde{V}_i = V_i / \lambda_V$.
-\STATE Initialize $\mu^{(0)} = 0$, $\beta^{(0)} = 0$, $\gamma^{(0)} = 0$ and $W_i^{(0)} = 0$ for all $i$.
-\REPEAT
-    \STATE Define the active set $\mathcal{A}^{(k)} = \{ i : 1 > Y_i^* W_i^{(k)} \}$ and let $a^{(k)} = |\mathcal{A}^{(k)}|$.
-    \STATE Compute $\tilde{Z}_i^{(k)}$, $\tilde{V}_i^{(k)}$ and $Y_i^{(k)}$ as the centered versions of $\tilde{Z}_i$, $\tilde{V}_i$ and $Y_i^*$ respectively, using only the observations in the current active set $\mathcal{A}^{(k)}$.
-    \STATE Find $ \left(\tilde{\beta}^{(k)}, \tilde{\gamma}^{(k)}\right)$ by minimizing
-    \STATE \hspace{1em}
-           $\frac{1}{a^{(k)}} \sum_{i \in \mathcal{A}^{(k)}}\left(Y_i^{(k)}-\tilde{\beta}^{\top} \tilde{Z}_i^{(k)}-\tilde{\gamma}^{\top} \tilde{V}_i^{(k)}\right)^2+\sum_{j=1}^{L_Z}\left|\tilde{\beta}_j\right|+\sum_{j=1}^{L_V}\left|\tilde{\gamma}_j\right| $.
-    \STATE Update the intercept:
-    \STATE \hspace{1em}
-           $\hat{\mu}^{(k)}=\frac{1}{a^{(k)}} \sum_{i \in \mathcal{A}^{(k)}}\left(Y_i^*-\tilde{\beta}^{(k)^{\top}} \tilde{Z}_i-\tilde{\gamma}^{(k)^{\top}} \tilde{V}_i\right)$.
-    \STATE Update the scores for all $i = 1,\dots,N$:
-    \STATE \hspace{1em}
-           $\widehat{W}_i^{(k)}=\hat{\mu}^{(k)}+\tilde{\beta}^{(k)^{\top}} \tilde{Z}_i+\tilde{\gamma}^{(k)^{\top}} \tilde{V}_i$.
-\UNTIL{convergence of $(\mu^{(k)},\beta^{(k)},\gamma^{(k)})$ or the active set $\mathcal{A}^{(k)}$}
-\STATE Recover the original coefficients:
-       $\hat\beta = \beta^{(k)} / \lambda_Z$ and
-       $\hat\gamma = \gamma^{(k)} / \lambda_V$.
-
-\vspace{1\baselineskip}
-
-\STATE \textbf{return} $(\mu,\beta,\gamma,\{W_i\}_{i=1}^N)$.
-\end{algorithmic}
-\end{algorithm}
-
+\input{algosvm}
 
 Selection of the tuning parameters $(\lambda_Z,\lambda_V)$ is carried out using a generalized cross-validation (GCV) statistic based on the squared hinge loss over the active set and the effective degrees of freedom (the number of nonzero coefficients). 
 Starting from a large value of the penalty on causal heterogeneity covariates, a coarse grid search over $\lambda_V$ is performed and the value that minimizes the GCV criterion is selected.
@@ -209,84 +151,35 @@ These one-dimensional line searches in $\lambda_V$ and $\lambda_Z$ are alternate
 The resulting $(\hat\lambda_Z,\hat\lambda_V)$ are used to
 obtain the final L2-SVM fit.
 
-\begin{algorithm}[htbp]
-\caption{GCV-Based Selection of $(\lambda_Z,\lambda_V)$}
-\label{alg:gcv-tuning}
-\begin{algorithmic}[1]
-\REQUIRE $Y_i^*$, $Z_i, V_i, \omega_i$; grids $\mathcal{G}_Z, \mathcal{G}_V$
-\ENSURE Selected $(\hat\lambda_Z,\hat\lambda_V)$ and final $(\hat\mu,\hat\beta,\hat\gamma)$
-\STATE Initialize $\lambda_Z^{(0)}$ to a large value (e.g., $e^{10}$).
-
-\STATE Set iteration counter $m \gets 0$.
-\REPEAT
-    \STATE $m \gets m + 1$.
-    
-    \COMMENT{(a) Line search over $\lambda_V$ given $\lambda_Z^{(m-1)}$}
-    \FORALL {$\lambda_V \in \mathcal{G}_V$}
-        \STATE  Fit the L2-SVM with $(\lambda_Z^{(m-1)},\lambda_V)$ using Algorithm~\ref{alg:fit-svm-lasso} and get $(\mu,\beta,\gamma,\{W_i\})$.
-        \STATE $A \gets \{ i : 1 > Y_i^* W_i \}$ and $a \gets |A|$.
-        \STATE $\ell \gets \|\beta\|_0 + \|\gamma\|_0$.
-        \STATE $\text{RSS} \gets \sum_{i\in A}\omega_i (Y_i^* - W_i)^2$.
-        \STATE $\text{GCV}(\lambda_Z^{(m-1)},\lambda_V) \gets \dfrac{\text{RSS}/a}{(1 - \ell/a)^2}$.
-    \ENDFOR
-    \STATE $\lambda_V^{(m)} \gets \arg\min_{\lambda_V\in\mathcal{G}_V} \text{GCV}(\lambda_Z^{(m-1)},\lambda_V)$.
-    
-    \COMMENT{(b) Line search over $\lambda_Z$ given $\lambda_V^{(m)}$}
-    \FORALL {$\lambda_Z \in \mathcal{G}_Z$}
-        \STATE Fit the L2-SVM with $(\lambda_Z,\lambda_V^{(m)})$ using Algorithm~\ref{alg:fit-svm-lasso} and get $(\mu,\beta,\gamma,\{W_i\})$.
-        \STATE $A \gets \{ i : 1 > Y_i^* W_i \}$ and $a \gets |A|$.
-        \STATE $\ell \gets \|\beta\|_0 + \|\gamma\|_0$.
-        \STATE $\text{RSS} \gets \sum_{i\in A}\omega_i (Y_i^* - W_i)^2$.
-        \STATE $\text{GCV}(\lambda_Z,\lambda_V^{(m)}) \gets \dfrac{\text{RSS}/a}{(1 - \ell/a)^2}$.
-    \ENDFOR
-    \STATE $\lambda_Z^{(m)} \gets \arg\min_{\lambda_Z\in\mathcal{G}_Z} \text{GCV}(\lambda_Z,\lambda_V^{(m)})$.
-    \STATE $m \gets m + 1$.
-    
-\UNTIL{convergence of $(\lambda_Z^{(m)},\lambda_V^{(m)})$}
-\STATE Optionally refine the search with finer grids around $(\lambda_Z^{(m)},\lambda_V^{(m)})$.
-
-\STATE Set $\hat\lambda_Z \gets \lambda_Z^{(m)}$, $\hat\lambda_V \gets \lambda_V^{(m)}$.
-\STATE Fit the L2-SVM with $(\hat\lambda_Z,\hat\lambda_V)$ using Algorithm~\ref{alg:fit-svm-lasso} and get $(\hat\mu,\hat\beta,\hat\gamma)$.
-
-\STATE \textbf{return} $(\hat\mu,\hat\beta,\hat\gamma,\hat\lambda_Z,\hat\lambda_V)$.
-\end{algorithmic}
-\end{algorithm}
-
+\input{algogcv}
+\vspace{-1em}
 
 \section{Reproducing Results}
 
-In this section, we reproduce the main findings from the paper by applying the FindIt method to the two datasets analyzed in the original study: the GerberGreen dataset and the LaLonde dataset. We use the \texttt{FindIt} R package to implement the L2-SVM with double LASSO approach and compare our results with those reported in the paper.
+In this section, we reproduce the main findings from the paper by applying the \texttt{FindIt} method to the two datasets analyzed in the original study: the GerberGreen dataset and the LaLonde dataset. We use the \texttt{FindIt} R package to implement the L2-SVM with double LASSO approach and compare our results with those reported in the paper.
 
 \subsection{GerberGreen Factorial Design}
 
-Following the paper's approach, we apply the FindIt method to the GerberGreen dataset using the factorial design specification. The paper uses a factorial treatment design with four treatment factors: \texttt{persngrp} (personal visit), \texttt{phnscrpt} (phone script), \texttt{mailings} (number of mailings), and \texttt{appeal} (appeal type). We implement this using the \texttt{treat.type = "multiple"} specification with \texttt{nway = 4} to generate all treatment-treatment interactions.
+Following the paper's approach, we apply the \texttt{FindIt} method to the GerberGreen dataset using the factorial design specification. The paper uses a factorial treatment design with four treatment factors: \texttt{persngrp} (personal visit), \texttt{phnscrpt} (phone script), \texttt{mailings} (number of mailings), and \texttt{appeal} (appeal type). We implement this using the \texttt{treat.type = "multiple"} specification with \texttt{nway = 4} to generate all treatment-treatment interactions.
 
-\subsubsection{Model Specification}
-
-We fit the FindIt model using the exact syntax from the FindIt package documentation (Example 2):
+We fit the \texttt{FindIt} model using the exact syntax from the \texttt{FindIt} package documentation (Example 2):
 \begin{align}
     \text{model.treat} &: \quad \texttt{voted98} \sim \texttt{persngrp} + \texttt{phnscrpt} + \texttt{mailings} + \texttt{appeal} \\
     \text{model.main} &: \quad \sim \texttt{age} + \texttt{majorpty} + \texttt{vote96.1} + \texttt{vote96.0}
 \end{align}
-with \texttt{nway = 4} to generate all two-way, three-way, and four-way interactions among the treatment factors. We use the tuning parameters $\lambda_Z = -15.000$ and $\lambda_V = -6.237$ as provided in the FindIt package documentation example.
-
-\subsubsection{Results}
+with \texttt{nway = 4} to generate all two-way, three-way, and four-way interactions among the treatment factors. We use the tuning parameters $\lambda_Z = -15.000$ and $\lambda_V = -6.237$ as provided in the \texttt{FindIt} package documentation example.
 
 Our analysis identifies 20 nonzero treatment coefficients, including main effects and interaction terms. The top treatment combination identified by the model is \texttt{persngrp = 1}, \texttt{phnscrpt = 0}, \texttt{mailings = 0}, \texttt{appeal = 3}, with an estimated treatment effect of 0.0326 (3.26 percentage points). This result is consistent with the paper's key finding that personal visits (\texttt{persngrp = 1}) are the most effective mobilization strategy.
 
 The top five treatment combinations all involve personal visits (\texttt{persngrp = 1}) with no phone calls (\texttt{phnscrpt = 0}), confirming the paper's conclusion that canvassing in person is the most effective get-out-the-vote technique. The estimated effects range from 0.0245 to 0.0326 percentage points, which are similar in magnitude to the paper's reported effects (e.g., 2.69 percentage points for personal visits compared to baseline).
 
-\subsubsection{Comparison with Paper}
-
 The paper reports identifying 15 nonzero treatment effect combinations out of 192 possible combinations. Our analysis identifies 20 nonzero coefficients, which may reflect differences in the exact lambda values used or minor differences in the implementation. However, the qualitative findings are consistent: personal visits are identified as the most effective treatment, and the estimated effects are of similar magnitude to those reported in the paper.
 
 \subsection{LaLonde Treatment-Covariate Interactions}
 
-For the LaLonde dataset, we apply the FindIt method with the single treatment type specification to identify treatment-covariate interactions. The paper uses this dataset to identify subgroups of workers for whom the job training program is beneficial.
+For the LaLonde dataset, we apply the \texttt{FindIt} method with the single treatment type specification to identify treatment-covariate interactions. The paper uses this dataset to identify subgroups of workers for whom the job training program is beneficial.
 
-\subsubsection{Model Specification}
-
-We fit the FindIt model with treatment-covariate interactions:
+We fit the \texttt{FindIt} model with treatment-covariate interactions:
 \begin{align}
     \text{model.treat} &: \quad \texttt{outcome} \sim \texttt{treat} \\
     \text{model.main} &: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} \\
@@ -294,13 +187,9 @@ We fit the FindIt model with treatment-covariate interactions:
 \end{align}
 where \texttt{treat} is the binary treatment indicator (job training program), and we allow for interactions between treatment and the pre-treatment covariates. We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to choose optimal tuning parameters via generalized cross-validation.
 
-\subsubsection{Results}
-
 Our analysis yields an average treatment effect (ATE) estimate of 0.0627 (6.27 percentage points), indicating that workers who received the job training were 6.27 percentage points more likely to have increased earnings from 1975 to 1978 compared to those who did not receive the treatment. The model identifies 8 nonzero coefficients, including main effects and treatment-covariate interaction terms.
 
 The optimal tuning parameters selected by the method are $\lambda_Z = -4.9175$ and $\lambda_V = -2.9$. The predicted treatment effects are relatively homogeneous across units (ranging from 0.0627 to 0.0629), suggesting that in this particular sample, the treatment effects do not vary substantially across different covariate profiles.
-
-\subsubsection{Comparison with Paper}
 
 The paper reports an ATE estimate of 7.61 percentage points for the NSW sample, which is somewhat higher than our estimate of 6.27 percentage points. This difference may be due to several factors: (1) differences in the exact covariate specification (the paper uses 44 covariates including squared terms and interactions, while we use a simplified specification with 3 main covariates); (2) differences in lambda selection; or (3) minor differences in data preprocessing. However, both estimates are positive and of similar magnitude, confirming the paper's finding that the job training program has a positive average effect.
 
@@ -308,11 +197,11 @@ The paper also identifies substantial heterogeneity in treatment effects across 
 
 \subsection{Discussion}
 
-Our reproduction of the paper's results demonstrates both successes and challenges in applying the FindIt method. For the GerberGreen dataset, we successfully reproduce the key qualitative finding that personal visits are the most effective mobilization strategy, using the factorial design approach that matches the paper's methodology. The estimated treatment effects are of similar magnitude to those reported in the paper, confirming the robustness of this finding.
+Our reproduction of the paper's results demonstrates both successes and challenges in applying the \texttt{FindIt} method. For the GerberGreen dataset, we successfully reproduce the key qualitative finding that personal visits are the most effective mobilization strategy, using the factorial design approach that matches the paper's methodology. The estimated treatment effects are of similar magnitude to those reported in the paper, confirming the robustness of this finding.
 
 For the LaLonde dataset, we obtain an ATE estimate that is qualitatively consistent with the paper's findings (positive effect of job training), though quantitatively somewhat smaller. The difference likely reflects our use of a simplified covariate specification compared to the paper's more comprehensive model with 44 covariates. This highlights the importance of covariate selection in identifying treatment effect heterogeneity.
 
-Overall, our reproduction confirms that the FindIt method can successfully identify treatment effects and treatment-covariate interactions in real-world datasets. The method's performance depends on appropriate specification of the treatment structure (factorial design for multiple treatments, single treatment with interactions for heterogeneous effects) and careful selection of tuning parameters.
+Overall, our reproduction confirms that the \texttt{FindIt} method can successfully identify treatment effects and treatment-covariate interactions in real-world datasets. The method's performance depends on appropriate specification of the treatment structure (factorial design for multiple treatments, single treatment with interactions for heterogeneous effects) and careful selection of tuning parameters.
 
 \section{Results}
 
@@ -343,35 +232,108 @@ Crucially, the model is able to identify groups of workers for whom the training
 Specifically, the model finds that the CATE for groups of low education, non-Hispanic, high earning workers was as high as 53 percentage points.
 However, the CATE for groups of high earning Hispanic workers was as low as -21 percentage points.
 
-
-
 \section{Conclusion}
 
-This project has successfully reproduced the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the GerberGreen and LaLonde datasets using the FindIt R package, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
+This project has successfully reproduced the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the GerberGreen and LaLonde datasets using the \texttt{FindIt} R package, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
 
 Our key findings from reproducing the paper's results include: (1) the successful implementation of the factorial design analysis for the GerberGreen dataset, which confirms that personal visits are the most effective mobilization strategy, with estimated effects (ranging from 2.45 to 3.26 percentage points) consistent with the paper's findings (2.69 percentage points); (2) the reproduction of the LaLonde analysis, obtaining an ATE estimate of 6.27 percentage points that is qualitatively consistent with the paper's estimate of 7.61 percentage points, demonstrating the robustness of the method's findings despite differences in covariate specification; and (3) the identification of 20 nonzero treatment coefficients in GerberGreen and 8 nonzero coefficients in LaLonde, showing that the method successfully identifies treatment effects and interactions in real-world datasets.
 
-The reproduction results demonstrate that the FindIt method successfully identifies treatment effects in real-world datasets when appropriately specified. The factorial design approach with \texttt{treat.type = "multiple"} works well for the GerberGreen dataset with multiple treatment factors, generating all treatment-treatment interactions and identifying the most effective treatment combinations. The single treatment type with interactions approach captures average treatment effects in the LaLonde dataset, though our simplified covariate specification (3 covariates versus the paper's 44 covariates) may not capture the full heterogeneity identified in the original study. This highlights the importance of comprehensive covariate selection in identifying treatment effect heterogeneity.
+The reproduction results demonstrate that the \texttt{FindIt} method successfully identifies treatment effects in real-world datasets when appropriately specified. The factorial design approach with \texttt{treat.type = "multiple"} works well for the GerberGreen dataset with multiple treatment factors, generating all treatment-treatment interactions and identifying the most effective treatment combinations. The single treatment type with interactions approach captures average treatment effects in the LaLonde dataset, though our simplified covariate specification (3 covariates versus the paper's 44 covariates) may not capture the full heterogeneity identified in the original study. This highlights the importance of comprehensive covariate selection in identifying treatment effect heterogeneity.
 
 As a supplementary analysis, we also conducted a simulation study with homogeneous treatment effects (presented in the Appendix), which reveals that the method's performance depends critically on matching the specification to the data structure. This finding emphasizes the importance of understanding the underlying assumptions of the method and choosing appropriate specifications based on the data characteristics.
 
-Future research directions include: exploring more comprehensive covariate specifications to better capture treatment effect heterogeneity, investigating the sensitivity of results to lambda selection methods, comparing performance across different datasets and application domains, and developing guidelines for choosing appropriate FindIt specifications based on data characteristics.
+Future research directions include: exploring more comprehensive covariate specifications to better capture treatment effect heterogeneity, investigating the sensitivity of results to lambda selection methods, comparing performance across different datasets and application domains, and developing guidelines for choosing appropriate \texttt{FindIt} specifications based on data characteristics.
 
 % Bibliography ----------------------
 \newpage
 \bibliographystyle{plain}
-% \bibliography{../bibliography}
-% Bibliography file not available - placeholder
-
+\bibliography{../bibliography}
 
 \newpage
 \appendix
 \renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
 \section{Appendix} \hfill\newline
+
+\subsection{Exploratory Data Analysis}
+
+Table~\ref{tab:GerberGreen} provides a preview of the \texttt{GerberGreen} dataset.
+\texttt{voted98} is a binary outcome variable of whether a registered voter voted or not in the 1998 election;
+\texttt{persngrp} is a binary treatment variable of whether a personal visit of a registered voter was made;
+\texttt{phnscrpt} is a categorical treatment variable with 7 levels (0 - no phone call, 1 - donate blood, 2 - civic appeal, 3 - civic appeal/donate blood, 4 - neighborhood solidarity, 5 - civic appeal/neighborhood solidarity, 6 - close election), for the phone message scripts read to registered voters;
+\texttt{mailings} is an ordinal treatment variable of the number (0-3) of mailings sent to voters;
+\texttt{appeal} is a categorical treatment variable with 3 levels (1 - civic duty, 2 - neighborhood solidarity, 3 - close election) for the content of the appeal made to registered voters;
+\texttt{age} is an ordinal control for the age of the registered voter;
+\texttt{majorpty} is a binary control for whether the registered voter was registered with either the Democratic or Republican part (1) or not (0);
+\texttt{vote96.1} is a binary control for whether the registered voter voted in the 1996 election; and
+\texttt{vote96.0} is a binary control for whether the registered voter abstained in the 1996 election.
+
+\input{tbls/GerberGreentbl.tex}
+
+Table~\ref{tab:GerberGreenTreatmentInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the four treatment variables present in \texttt{GerberGreen}. Note, in the original experiment design there were 193 unique treatment combinations randomly administered to registered voters; however, the authors limited their study to single voter households to avoid interference among voters in the same household and thus only 72 treatment combinations are present in the subsetted data.
+Figure~\ref{fig:gerbergreentreatments} provides the proportion that voted in the 1998 election by the levels of each of the four treatment types.
+Whereas, Figure~\ref{fig:gerbergreencontrols} provides the proportion that voted in the 1998 election by the levels of each of the four pre-treatment controls.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/GerberGreenTreatments.png}
+    \caption{Voting Outcome by Treatment Type}
+    \label{fig:gerbergreentreatments}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/GerberGreenControls.png}
+    \caption{Voting Outcome by Pre-Treatment Control}
+    \label{fig:gerbergreencontrols}
+\end{figure}
+
+\input{tbls/GerberGreenTreatmentInteraction.tex}
+
+\newpage
+Table~\ref{tab:GerberGreenControlInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the pre-treatment control covariates.
+
+\input{tbls/GerberGreenControlInteraction.tex}
+
+\newpage
+
+Table~\ref{tab:LaLonde} provides a preview of the \texttt{LaLonde} dataset.
+This dataset includes one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
+Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975;
+\texttt{treat} is a binary treatment variable for whether an individual received the job training or not;
+\texttt{age} is an ordinal control for the age in years of workers;
+\texttt{educ} is an ordinal control for the years of education of workers;
+\texttt{black} is a binary control for whether the worker is black or not;
+\texttt{hisp} is a binary control for whether the worker is Hispanic or not;
+\texttt{white} is a binary control for whether the worker is white or not;
+\texttt{marr} is a binary control for whether the worker is married or not;
+\texttt{nodegr} is a binary control for whether the worker has a high school degree or not;
+\texttt{log.re75} is a continuous control for workers pre-treatment log earnings in 1975;
+\texttt{u75} is a binary control for whether the worker was unemployed in 1975 or not.
+%\texttt{wts.extrap}
+
+\input{tbls/LaLondetbl.tex}
+
+Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
+Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had larger earnings by the levels of each of the pre-treatment controls.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/LaLondeTreatments.png}
+    \caption{Earnings Outcome by Treatment}
+    \label{fig:lalondetreatments}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figs/LaLondeControls.png}
+    \caption{Earnings Outcome by Pre-Treatment Control}
+    \label{fig:lalondecontrols}
+\end{figure}
 
 \subsection{Homogeneous Treatment Effects Simulation Study}
 
-In this appendix, we present a simulation study that evaluates the FindIt method's performance when applied to scenarios with homogeneous treatment effects. This study complements the main reproduction results by examining the method's behavior under conditions that differ from its primary design assumptions.
+In this appendix, we present a simulation study that evaluates the \texttt{FindIt} method's performance when applied to scenarios with homogeneous treatment effects. This study complements the main reproduction results by examining the method's behavior under conditions that differ from its primary design assumptions.
 
 \subsubsection{Simulation Setup}
 
@@ -408,7 +370,7 @@ Treatment assignment is random and independent of covariates: each unit is rando
 
 \paragraph{Model Fitting}
 
-For each simulated dataset, we fit the FindIt model using the \texttt{FindIt} package in R. Due to computational constraints and the structure of our simulation (multiple binary treatment indicators rather than factorial treatment factors), we use the single treatment type specification:
+For each simulated dataset, we fit the \texttt{FindIt} model using the \texttt{FindIt} package in R. Due to computational constraints and the structure of our simulation (multiple binary treatment indicators rather than factorial treatment factors), we use the single treatment type specification:
 \begin{align}
     \text{model.treat} &: \quad Y \sim \text{treatment} \\
     \text{model.main} &: \quad \sim V_1 + V_2 + V_3 \\
@@ -437,7 +399,7 @@ Specifically, for each replication $r$:
 
 \subsubsection{Simulation Results}
 
-Table~\ref{tab:simulation_results} presents the simulation results across the three sample sizes. The results show that the FindIt method achieves low discovery rates across all sample sizes, with DR(largest) ranging from 0.01 to 0.02 and DR(top 3) ranging from 0.01 to 0.02.
+Table~\ref{tab:simulation_results} presents the simulation results across the three sample sizes. The results show that the \texttt{FindIt} method achieves low discovery rates across all sample sizes, with DR(largest) ranging from 0.01 to 0.02 and DR(top 3) ranging from 0.01 to 0.02.
 
 \begin{table}[H]
 \centering
@@ -462,7 +424,7 @@ The low discovery rates observed in our simulation study can be attributed to se
 
 \paragraph{Methodological Limitations}
 
-First, the FindIt method with \texttt{treat.type = "single"} is designed to identify \emph{heterogeneous} treatment effects---that is, treatment effects that vary across different covariate profiles. However, our simulation setup assumes \emph{homogeneous} treatment effects---each treatment has a fixed effect that does not depend on covariates. This mismatch between the method's assumptions and the simulation's data generating process may explain the poor performance.
+First, the \texttt{FindIt} method with \texttt{treat.type = "single"} is designed to identify \emph{heterogeneous} treatment effects---that is, treatment effects that vary across different covariate profiles. However, our simulation setup assumes \emph{homogeneous} treatment effects---each treatment has a fixed effect that does not depend on covariates. This mismatch between the method's assumptions and the simulation's data generating process may explain the poor performance.
 
 Specifically, the single treatment type specification models treatment effects through treatment-covariate interactions:
 \begin{align}
@@ -478,7 +440,7 @@ Additionally, we use automatic lambda selection for each replication, which is c
 
 \paragraph{Evaluation Challenges}
 
-Third, extracting treatment-specific effects from the FindIt output with \texttt{treat.type = "single"} is challenging. The method's \texttt{predict()} function returns conditional treatment effects that depend on each unit's covariate values. We average these effects across units within each treatment group to obtain treatment-level effects, but this averaging may not accurately reflect the true homogeneous effects in our simulation.
+Third, extracting treatment-specific effects from the \texttt{FindIt} output with \texttt{treat.type = "single"} is challenging. The method's \texttt{predict()} function returns conditional treatment effects that depend on each unit's covariate values. We average these effects across units within each treatment group to obtain treatment-level effects, but this averaging may not accurately reflect the true homogeneous effects in our simulation.
 
 \paragraph{Comparison with Paper}
 
@@ -486,9 +448,9 @@ The paper's simulation results (Figure 1) show that the method achieves higher d
 
 \subsubsection{Conclusion}
 
-Our simulation study demonstrates the challenges of applying the FindIt method to scenarios with homogeneous treatment effects when using the single treatment type specification. While the method is designed for heterogeneous effects, our simulation shows that it struggles to identify treatments with homogeneous but substantial effects.
+Our simulation study demonstrates the challenges of applying the \texttt{FindIt} method to scenarios with homogeneous treatment effects when using the single treatment type specification. While the method is designed for heterogeneous effects, our simulation shows that it struggles to identify treatments with homogeneous but substantial effects.
 
-These results highlight the importance of matching the method's assumptions to the data structure. For scenarios with homogeneous treatment effects, alternative methods or different FindIt specifications (such as multiple treatment type with factorial designs) may be more appropriate.
+These results highlight the importance of matching the method's assumptions to the data structure. For scenarios with homogeneous treatment effects, alternative methods or different \texttt{FindIt} specifications (such as multiple treatment type with factorial designs) may be more appropriate.
 
 Future work could explore:
 \begin{itemize}
@@ -496,56 +458,6 @@ Future work could explore:
     \item Adjusting the evaluation metrics to account for the method's focus on heterogeneous effects.
     \item Comparing performance across different simulation setups to better understand the method's strengths and limitations.
 \end{itemize}
-
-\subsection{Data Descriptions}
-
-Table~\ref{tab:GerberGreen} provides a preview of the \texttt{GerberGreen} dataset.
-\texttt{voted98} is a binary outcome variable of whether a registered voter voted or not in the 1998 election;
-\texttt{persngrp} is a binary treatment variable of whether a personal visit of a registered voter was made;
-\texttt{phnscrpt} is a categorical treatment variable with 7 levels (0 - no phone call, 1 - donate blood, 2 - civic appeal, 3 - civic appeal/donate blood, 4 - neighborhood solidarity, 5 - civic appeal/neighborhood solidarity, 6 - close election), for the phone message scripts read to registered voters;
-\texttt{mailings} is an ordinal treatment variable of the number (0-3) of mailings sent to voters;
-\texttt{appeal} is a categorical treatment variable with 3 levels (1 - civic duty, 2 - neighborhood solidarity, 3 - close election) for the content of the appeal made to registered voters;
-\texttt{age} is an ordinal control for the age of the registered voter;
-\texttt{majorpty} is a binary control for whether the registered voter was registered with either the Democratic or Republican part (1) or not (0);
-\texttt{vote96.1} is a binary control for whether the registered voter voted in the 1996 election; and
-\texttt{vote96.0} is a binary control for whether the registered voter abstained in the 1996 election.
-
-% \input{tbls/GerberGreentbl.tex}
-% Table file not available - placeholder
-
-Table~\ref{tab:GerberGreenTreatmentInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the four treatment variables present in \texttt{GerberGreen}. Note, in the original experiment design there were 193 unique treatment combinations randomly administered to registered voters; however, the authors limited their study to single voter households to avoid interference among voters in the same household and thus only 72 treatment combinations are present in the subsetted data.
-
-% \input{tbls/GerberGreenTreatmentInteraction.tex}
-% Table file not available - placeholder
-
-\newpage
-Table~\ref{tab:GerberGreenControlInteraction} below provides a breakdown of the proportion of registered voters that voted in 1998 by each of the combinations of the pre-treatment control covariates.
-
-% \input{tbls/GerberGreenControlInteraction.tex}
-% Table file not available - placeholder
-
-\newpage
-
-
-Table~\ref{tab:LaLonde} provides a preview of the \texttt{LaLonde} dataset.
-This dataset includes one binary outcome variable, one binary treatment variable, and ten pre-treatment control covariates.
-Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975;
-\texttt{treat} is a binary treatment variable for whether an individual received the job training or not;
-\texttt{age} is an ordinal control for the age in years of workers;
-\texttt{educ} is an ordinal control for the years of education of workers;
-\texttt{black} is a binary control for whether the worker is black or not;
-\texttt{hisp} is a binary control for whether the worker is Hispanic or not;
-\texttt{white} is a binary control for whether the worker is white or not;
-\texttt{marr} is a binary control for whether the worker is married or not;
-\texttt{nodegr} is a binary control for whether the worker has a high school degree or not;
-\texttt{log.re75} is a continuous control for workers pre-treatment log earnings in 1975;
-\texttt{u75} is a binary control for whether the worker was unemployed in 1975 or not.
-%\texttt{wts.extrap}
-
-% \input{tbls/LaLondetbl.tex}
-% Table file not available - placeholder
-
-
 
 \end{document}
 
