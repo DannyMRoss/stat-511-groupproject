@@ -70,7 +70,7 @@
 In the paper ``Estimating treatment effect heterogeneity in randomized program evaluation,''\cite{imai_estimating_2013} the authors are concerned with ``treatment effect heterogeneity'' which they define as ``the degree to which different treatments have differential causal effects on each unit.'' 
 The authors' objective is to estimate \teh\ in order to (1) select the most effective treatment among a large number of available treatments, (2) design optimal treatments for sub-groups of units, (3) test the existence of \teh, and (4) generalize causal effect estimates from a sample to a target population.
 
-\section{Data Description and Availability of Dataset}
+\section{Data Description}
 %Provide a detailed overview of the dataset used (from the main application), including information about the variables in the dataset.
 
 The \texttt{R} package \texttt{FindIt} includes the data from two well-known randomized evaluation studies in the social sciences that the authors' apply their model to.\cite{FindIt2012} 
@@ -105,7 +105,7 @@ Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had large
 \section{Model and Methods Description}
 %Clearly describe the proposed model in the analysis. Outline the statistical estimation methods. For the proposed inference methods, provide an algorithm (e.g.,  with sufficient detail to implement the methods, using the input described in the Data Description section.
 
-\subsection{Framework}
+\subsection{Modeling framework}
 
 In order to overcome the methodological challenges of (1) extracting useful information from sparse randomized evaluation study data, (2) identifying sub-groups for whom a treatment is beneficial, and (3) generalizing the results of an experiment to a target population, the authors' formulate the estimation of heterogeneous treatment effects as a variable selection problem.
 Specifically, the paper develops a Squared Loss Support Vector Machine (L2-SVM) with separate LASSO constraints over the pre-treatment and causal heterogeneity parameters, such that the causal heterogeneity variables of interest are separated from the rest of the variables. 
@@ -116,31 +116,27 @@ Thus, by leveraging the fact that the L2-SVM is an optimal classifier, the propo
 
 To fit the proposed model the authors' use an estimation algorithm based on a generalized cross-validation (GCV) statistic.
 Because of the structure of the proposed model, the SVM becomes a least squares problem on a subset of the data, therefore the L2-SVM is fitted through a series of iterated LASSO fits.
-Accordingly, the authors' employ an efficient coordinate descent algorithm for the LASSO fits. 
-
-\subsection{Model}
+Accordingly, the authors' employ an efficient coordinate descent algorithm for the LASSO fits.
 
 For modeling, the authors transform the binary outcome to $Y_i^* = 2Y_i - 1 \in \{\pm1\}$ and then relate the estimated binary outcome $\hat{Y_i} \in \{\pm1\}$ to the estimated latent variable $\hat{W_i} \in \mathbb{R}$, where \[\hat{Y_i} = \operatorname{sgn}(\hat{W_i})\quad\text{and}\quad\hat{W_i} = \hat{\mu} + \hat{\beta}^{\top}Z_i + \hat{\gamma}^{\top}V_i,\] here $Z_i$ is an $L_Z$ dimensional vector of treatment effect heterogeneity variables and $V_i$ is an $L_V$ dimensional vector containing the remaining control covariates.
 Thus, the causal heterogeneity variables of interest, $Z_i$, are separated from the rest of the variables.
 
 In order to estimate the parameters $(\beta, \gamma)$ the authors adapt a support vector machine (SVM) classifier and place separate LASSO constraints over each set of coefficients. 
 Specifically, the estimates are given by the objective function \[(\hat{\beta}, \hat{\gamma}) = \underset{(\beta, \gamma)}{\text{arg min}} \sum_{i=1}^{n} w_i \cdot |1-Y_i^* \cdot(\mu + \beta^{\top}Z_i + \gamma^{\top}V_i)|^2_{+} + \lambda_Z \sum_{j=1}^{L_Z} |\beta_j| + \lambda_V \sum_{j=1}^{L_V}|\gamma_j|,\] where $\lambda_Z$ and $\lambda_V$ are pre-determined separate LASSO penalty parameters and $w_i$ is an optional sampling weight for generalizing results from a sample to a target population.
-Here, the authors formulate the SVM as a penalized squared hinge-loss objective function (L2-SVM) where the hinge-loss is defined as $|x|_+ \equiv \max(x,0)$. 
+Here, the authors formulate the SVM as a penalized squared hinge-loss objective function (L2-SVM) where the hinge-loss is defined as $|x|_+ \equiv \max(x,0)$.
 
-\subsection{Estimating heterogeneous treatment effects}
-
-By leveraging the fact that the L2-SVM is an optimal classifier, the proposed model can estimate \hte\ by predicting the potential outcomes $Y_i(t)$ directly from the fitted model and estimate the conditional treatment effect (CTE) as the difference between the predicted outcome under treatment status $t$ and under the control condition: $\hat{\delta}(t; \tilde{X}_i) = \frac{1}{2}(\hat{Y}_i(t) - \hat{Y}_i(0))$.
-Further, the model can estimate the conditional average treatment effect (CATE), which is defined as $\tau(t; \tilde{x}) = \mathbb{E}(Y_i(t) - Y_i(0)\,|\,\tilde{X}_i = \tilde{x})$, for a given covariate profile $\tilde{x}$.
-Specifically, the authors define $\hat{W}_i^*(t)$ as the predicted $\hat{W}_i^*(t)$ values truncated at positive and negative one.
-Then the CATE is estimated as the difference in truncated values of the predicted outcome variables, $\hat{\tau}(t; \tilde{X}_i) = \frac{1}{2}(\hat{W}_i^*(t) - \hat{W}_i^*(0))$. 
-While not a true difference in probabilities, the authors argue that $\hat{\tau}(t; \tilde{X}_i)$ provides a reasonable approximation of the CATE. 
+%By leveraging the fact that the L2-SVM is an optimal classifier, the proposed model can estimate \hte\ by predicting the potential outcomes $Y_i(t)$ directly from the fitted model and estimate the conditional treatment effect (CTE) as the difference between the predicted outcome under treatment status $t$ and under the control condition: $\hat{\delta}(t; \tilde{X}_i) = \frac{1}{2}(\hat{Y}_i(t) - \hat{Y}_i(0))$.
+%Further, the model can estimate the conditional average treatment effect (CATE), which is defined as $\tau(t; \tilde{x}) = \mathbb{E}(Y_i(t) - Y_i(0)\,|\,\tilde{X}_i = \tilde{x})$, for a given covariate profile $\tilde{x}$.
+%Specifically, the authors define $\hat{W}_i^*(t)$ as the predicted $\hat{W}_i^*(t)$ values truncated at positive and negative one.
+%Then the CATE is estimated as the difference in truncated values of the predicted outcome variables, $\hat{\tau}(t; \tilde{X}_i) = \frac{1}{2}(\hat{W}_i^*(t) - \hat{W}_i^*(0))$. 
+%While not a true difference in probabilities, the authors argue that $\hat{\tau}(t; \tilde{X}_i)$ provides a reasonable approximation of the CATE. 
 
 \subsection{Estimating algorithm}
 
 This paper introduces an estimation algorithm for the L2-SVM with separate LASSO penalties on treatment and non-treatment covariates. 
 For fixed tuning parameters $(\lambda_Z,\lambda_V)$, the covariates are first rescaled, and the model is then fitted iteratively by focusing on the set of ``active'' observations whose hinge loss is positive. 
 At each iteration, the covariates and the transformed outcome are centered within the current active set, the LASSO coefficients are updated using a least squares criterion with $\ell_1$ penalties, and the fitted values and the active set are recomputed. 
-This procedure is repeated until the coefficients converge, yielding the final estimates $(\mu,\beta,\gamma)$ and scores $W_i$.
+This procedure is repeated until the coefficients converge, yielding the final estimates $(\mu,\beta,\gamma)$ and scores $W_i$. See Algorithm~\ref{alg:fit-svm-lasso}.
 
 \input{algosvm}
 
@@ -149,10 +145,9 @@ Starting from a large value of the penalty on causal heterogeneity covariates, a
 Given this value, a grid search over $\lambda_Z$ is conducted in the same way. 
 These one-dimensional line searches in $\lambda_V$ and $\lambda_Z$ are alternated until convergence, and the search is then refined around the converged values. 
 The resulting $(\hat\lambda_Z,\hat\lambda_V)$ are used to
-obtain the final L2-SVM fit.
+obtain the final L2-SVM fit. See Algorithm~\ref{alg:gcv-tuning}.
 
 \input{algogcv}
-\vspace{-1em}
 
 \section{Reproducing Results}
 
@@ -182,8 +177,7 @@ For the LaLonde dataset, we apply the \texttt{FindIt} method with the single tre
 We fit the \texttt{FindIt} model with treatment-covariate interactions:
 \begin{align}
     \text{model.treat} &: \quad \texttt{outcome} \sim \texttt{treat} \\
-    \text{model.main} &: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} \\
-    \text{model.int} &: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black}
+    \text{model.main}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} & \quad \text{model.int}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black}
 \end{align}
 where \texttt{treat} is the binary treatment indicator (job training program), and we allow for interactions between treatment and the pre-treatment covariates. We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to choose optimal tuning parameters via generalized cross-validation.
 
@@ -217,7 +211,7 @@ For example, they find that the mobilization strategy of (\texttt{persngrp} $=0$
 Moreover, they find that the most effective treatment combination without canvassing was three mailings with a civic responsibility message and no phone calls, which was estimated to increase voter turnout by 1.17 percentage points.
 This result is relevant because canvassing is the most expensive mobilization strategy.
 
-Therefore, the authors conclude that in the presence of canvassing, the additional treatments of phone calls or mailings will lessen the canvassing's effectiveness. And if voters are not canvassed, they should be treated with three mailings with a civi duty appeal. 
+Therefore, the authors conclude that in the presence of canvassing, the additional treatments of phone calls or mailings will lessen the canvassing's effectiveness. And if voters are not canvassed, they should be treated with three mailings with a civic duty appeal. 
 
 \subsection{Identifying workers for whom job training is beneficial}
 
@@ -253,7 +247,7 @@ Future research directions include: exploring more comprehensive covariate speci
 \appendix
 \renewcommand{\thetable}{A\arabic{table}}
 \renewcommand{\thefigure}{A\arabic{figure}}
-\section{Appendix} \hfill\newline
+\section{Appendix}
 
 \subsection{Exploratory Data Analysis}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2025 10:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2025 10:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -525,20 +525,21 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (./Report.toc
-
-[1
-
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
+) (./Report.toc)
 \tf@toc=\write4
 \openout4 = `Report.toc'.
 
 
-(./Report.lof)
+(./Report.lof
+
+[1
+
+{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@lof=\write5
 \openout5 = `Report.lof'.
 
- (./Report.lot)
+
+(./Report.lot)
 \tf@lot=\write6
 \openout6 = `Report.lot'.
 
@@ -559,13 +560,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.129 
+l.127 
        [2] (./algosvm.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 3.
-)
+) (./algogcv.tex
 
-[3] (./algogcv.tex)
+[3])
 
 [4]
 
@@ -577,25 +578,20 @@ put line 3.
 
 [8] (./Report.bbl)
 
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 256--257
-
- []
-
-(./tbls/GerberGreentbl.tex)
-<figs/GerberGreenTreatments.png, id=300, 6524.375pt x 3513.125pt>
+[9] (./tbls/GerberGreentbl.tex)
+<figs/GerberGreenTreatments.png, id=275, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenTreatments.png Graphic file (type png)
 <use figs/GerberGreenTreatments.png>
-Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 279
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 273
 .
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
 
 
 [10]
-<figs/GerberGreenControls.png, id=306, 6524.375pt x 3513.125pt>
+<figs/GerberGreenControls.png, id=282, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenControls.png Graphic file (type png)
 <use figs/GerberGreenControls.png>
-Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 286.
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 280.
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
  (./tbls/GerberGreenTreatmentInteraction.tex
 
@@ -615,15 +611,15 @@ Overfull \vbox (4.01053pt too high) has occurred while \output is active []
 [12] (./tbls/GerberGreenControlInteraction.tex)
 
 [13] (./tbls/LaLondetbl.tex)
-<figs/LaLondeTreatments.png, id=326, 3513.125pt x 2007.5pt>
+<figs/LaLondeTreatments.png, id=302, 3513.125pt x 2007.5pt>
 File: figs/LaLondeTreatments.png Graphic file (type png)
 <use figs/LaLondeTreatments.png>
-Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 322.
+Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 316.
 (pdftex.def)             Requested size: 234.8775pt x 134.19855pt.
-<figs/LaLondeControls.png, id=327, 6524.375pt x 4516.875pt>
+<figs/LaLondeControls.png, id=303, 6524.375pt x 4516.875pt>
 File: figs/LaLondeControls.png Graphic file (type png)
 <use figs/LaLondeControls.png>
-Package pdftex.def Info: figs/LaLondeControls.png  used on input line 329.
+Package pdftex.def Info: figs/LaLondeControls.png  used on input line 323.
 (pdftex.def)             Requested size: 469.75502pt x 325.1734pt.
 
 
@@ -633,7 +629,7 @@ Package pdftex.def Info: figs/LaLondeControls.png  used on input line 329.
 c} <./figs/LaLondeControls.png>]
 
 [16]
-Overfull \hbox (2.27525pt too wide) in paragraph at lines 394--395
+Overfull \hbox (2.27525pt too wide) in paragraph at lines 388--389
 []\OT1/cmr/bx/n/10.95 DR(largest)\OT1/cmr/m/n/10.95 : In-di-ca-tor that the es-
 ti-mated largest ef-fect (among nonzero co-ef-fi-cients) matches
  []
@@ -649,65 +645,46 @@ ti-mated largest ef-fect (among nonzero co-ef-fi-cients) matches
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-Package rerunfilecheck Warning: File `Report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Report.out':
-(rerunfilecheck)             Before: 5D7B4E872CE715E68FD36AE1C51BEF2A;5260
-(rerunfilecheck)             After:  D6F0C405804E7F12FECC16FF977790D0;4812.
+Package rerunfilecheck Info: File `Report.out' has not changed.
+(rerunfilecheck)             Checksum: 5768F5B3DDA2D920DD0A94B4F073A45E;4348.
  ) 
 Here is how much of TeX's memory you used:
- 12318 strings out of 473190
- 188399 string characters out of 5715801
- 649494 words of memory out of 5000000
- 35245 multiletter control sequences out of 15000+600000
+ 12307 strings out of 473190
+ 188208 string characters out of 5715801
+ 649491 words of memory out of 5000000
+ 35240 multiletter control sequences out of 15000+600000
  570898 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,15n,79p,915b,634s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsubsection.4.2.3} has been referenced but does n
-ot exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsubsection.4.2.2} has been referenced but does n
-ot exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{subsubsection.4.2.1} has been referenced but does n
-ot exist, replaced by a fixed one
-
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loc
-al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
-exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2
-025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Report.pdf (21 pages, 1853219 bytes).
+ 75i,14n,79p,915b,634s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb>
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/loc
+al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
+exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texl
+ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on Report.pdf (21 pages, 1849099 bytes).
 PDF statistics:
- 506 PDF objects out of 1000 (max. 8388607)
- 420 compressed objects within 5 object streams
- 126 named destinations out of 1000 (max. 500000)
- 237 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 480 PDF objects out of 1000 (max. 8388607)
+ 395 compressed objects within 4 object streams
+ 120 named destinations out of 1000 (max. 500000)
+ 197 words of extra memory for PDF output out of 10000 (max. 10000000)
 

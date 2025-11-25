@@ -1,9 +1,9 @@
-\begin{algorithm}[htbp]
-\tiny
+\begin{algorithm}[h]
+\scriptsize
 \caption{\footnotesize Fit L2-SVM with Double LASSO for Given $(\lambda_Z,\lambda_V)$}
 \label{alg:fit-svm-lasso}
 \begin{algorithmic}[1]
-\tiny
+\scriptsize
 \REQUIRE Observations $\{(Y_i, Z_i, V_i, \omega_i)\}_{i=1}^N$, weights $\omega_i$, tuning parameters $(\lambda_Z,\lambda_V)$
 \ENSURE Estimated $(\mu,\beta,\gamma)$ and scores $W_i$
 \STATE Define $Y_i^* \gets 2Y_i - 1$ for all $i$.
