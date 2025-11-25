@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2025 10:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2025 11:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -576,22 +576,26 @@ put line 3.
 
 [7]
 
-[8] (./Report.bbl)
+[8]
+
+LaTeX Warning: Citation `ai' undefined on input line 244.
+
+(./Report.bbl)
 
 [9] (./tbls/GerberGreentbl.tex)
-<figs/GerberGreenTreatments.png, id=275, 6524.375pt x 3513.125pt>
+<figs/GerberGreenTreatments.png, id=276, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenTreatments.png Graphic file (type png)
 <use figs/GerberGreenTreatments.png>
-Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 273
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 274
 .
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
 
 
 [10]
-<figs/GerberGreenControls.png, id=282, 6524.375pt x 3513.125pt>
+<figs/GerberGreenControls.png, id=283, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenControls.png Graphic file (type png)
 <use figs/GerberGreenControls.png>
-Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 280.
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 281.
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
  (./tbls/GerberGreenTreatmentInteraction.tex
 
@@ -611,15 +615,15 @@ Overfull \vbox (4.01053pt too high) has occurred while \output is active []
 [12] (./tbls/GerberGreenControlInteraction.tex)
 
 [13] (./tbls/LaLondetbl.tex)
-<figs/LaLondeTreatments.png, id=302, 3513.125pt x 2007.5pt>
+<figs/LaLondeTreatments.png, id=303, 3513.125pt x 2007.5pt>
 File: figs/LaLondeTreatments.png Graphic file (type png)
 <use figs/LaLondeTreatments.png>
-Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 316.
+Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 317.
 (pdftex.def)             Requested size: 234.8775pt x 134.19855pt.
-<figs/LaLondeControls.png, id=303, 6524.375pt x 4516.875pt>
+<figs/LaLondeControls.png, id=304, 6524.375pt x 4516.875pt>
 File: figs/LaLondeControls.png Graphic file (type png)
 <use figs/LaLondeControls.png>
-Package pdftex.def Info: figs/LaLondeControls.png  used on input line 323.
+Package pdftex.def Info: figs/LaLondeControls.png  used on input line 324.
 (pdftex.def)             Requested size: 469.75502pt x 325.1734pt.
 
 
@@ -629,7 +633,7 @@ Package pdftex.def Info: figs/LaLondeControls.png  used on input line 323.
 c} <./figs/LaLondeControls.png>]
 
 [16]
-Overfull \hbox (2.27525pt too wide) in paragraph at lines 388--389
+Overfull \hbox (2.27525pt too wide) in paragraph at lines 389--390
 []\OT1/cmr/bx/n/10.95 DR(largest)\OT1/cmr/m/n/10.95 : In-di-ca-tor that the es-
 ti-mated largest ef-fect (among nonzero co-ef-fi-cients) matches
  []
@@ -645,14 +649,21 @@ ti-mated largest ef-fect (among nonzero co-ef-fi-cients) matches
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `Report.out' has not changed.
 (rerunfilecheck)             Checksum: 5768F5B3DDA2D920DD0A94B4F073A45E;4348.
  ) 
 Here is how much of TeX's memory you used:
- 12307 strings out of 473190
- 188208 string characters out of 5715801
+ 12309 strings out of 473190
+ 188219 string characters out of 5715801
  649491 words of memory out of 5000000
- 35240 multiletter control sequences out of 15000+600000
+ 35241 multiletter control sequences out of 15000+600000
  570898 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,14n,79p,915b,634s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -681,10 +692,10 @@ st/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/
 fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-d
 ist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Report.pdf (21 pages, 1849099 bytes).
+Output written on Report.pdf (21 pages, 1849150 bytes).
 PDF statistics:
- 480 PDF objects out of 1000 (max. 8388607)
- 395 compressed objects within 4 object streams
- 120 named destinations out of 1000 (max. 500000)
+ 482 PDF objects out of 1000 (max. 8388607)
+ 397 compressed objects within 4 object streams
+ 121 named destinations out of 1000 (max. 500000)
  197 words of extra memory for PDF output out of 10000 (max. 10000000)
 
