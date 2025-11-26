@@ -57,7 +57,7 @@
   	\textbf{\large Author Contributions} 
   \end{center}
   
-  \textbf{Chengyuan}: reproducing results, simulation study \textbf{Daniel}: report writing, exploratory data analysis \textbf{Junjie} estimating algorithms.
+  \textbf{Chengyuan}: reproducing results, simulation study, report writing \textbf{Daniel}: exploratory data analysis, report writing \textbf{Junjie} estimating algorithms, report writing.
   
 \end{titlepage}
 
@@ -73,9 +73,9 @@ The authors' objective is to estimate \teh\ in order to (1) select the most effe
 \section{Data Description}
 %Provide a detailed overview of the dataset used (from the main application), including information about the variables in the dataset.
 
-The \texttt{R} package \texttt{FindIt} includes the data from two well-known randomized evaluation studies in the social sciences that the authors' apply their model to.\cite{FindIt2012} 
-Including the dataset \texttt{GerberGreen}, which is data from the 1998 New Haven Get-Out-the-Vote filed experiment where many different mobilization techniques were randomly administered to voters in the 1998 election.
-As well as the dataset \texttt{LaLonde}, which is data from the national supported work (NSW) program that was a job training program intended to increase earnings of workers conducted from 1975 to 1978 over 15 sites in the United States.
+The \texttt{R} package \texttt{FindIt} includes the data from two well-known randomized evaluation studies in the social sciences that the authors apply their model to.\cite{FindIt2012} 
+Including the dataset \texttt{GerberGreen}, which is data from the 1998 New Haven Get-Out-the-Vote experiment where many different mobilization techniques were randomly administered to voters in the 1998 election to increase voter turnout.
+As well as the dataset \texttt{LaLonde}, which is data from the national supported work (NSW) job training program  designed to increase earnings of workers conducted from 1975 to 1978 over 15 sites in the United States.
 
 \subsection{Gerber and Green (1998) New Haven Get-Out-the-Vote}
 
@@ -83,7 +83,7 @@ The \texttt{GerberGreen} dataset includes one binary outcome variable, four trea
 Specifically, \texttt{voted98} is the binary outcome variable of whether a registered voter voted or not in the 1998 election.
 The appendix includes a preview of \texttt{GerberGreen} at Table~\ref{tab:GerberGreen} as well as additional details on the covariates. 
 
-Of the 14,774 registered voters collected in \texttt{GerberGreen}, 5,879 (39.8\%), voted in the 1998 election.
+Of the 14,774 registered voters collected in \texttt{GerberGreen}, 5,879 (39.8\%) voted in the 1998 election.
 Figure~\ref{fig:gerbergreentreatments} provides the proportion that voted in the 1998 election by the levels of each of the four treatment types.
 Whereas, Figure~\ref{fig:gerbergreencontrols} provides the proportion that voted in the 1998 election by the levels of each of the four pre-treatment controls.
 
@@ -98,7 +98,7 @@ The \texttt{LaLonde} dataset includes one binary outcome variable, one binary tr
 Specifically, \texttt{outcome} is a binary outcome variable of whether earnings in 1978 are larger than in 1975.
 The appendix includes a preview of \texttt{LaLonde} at Table~\ref{tab:LaLonde} as well as additional details on the covariates. 
 
-Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%), had larger earnings in 1978 compared to 1975.
+Of the 722 workers in \texttt{LaLonde}, 408 (56.5\%) had larger earnings in 1978 compared to 1975.
 Figure~\ref{fig:lalondetreatments} provides the proportion that had larger earnings in the control and treatment groups.
 Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had larger earnings by the levels of each of the pre-treatment controls.
 
@@ -107,55 +107,70 @@ Whereas, Figure~\ref{fig:lalondecontrols} provides the proportion that had large
 
 \subsection{Modeling framework}
 
-In order to overcome the methodological challenges of (1) extracting useful information from sparse randomized evaluation study data, (2) identifying sub-groups for whom a treatment is beneficial, and (3) generalizing the results of an experiment to a target population, the authors' formulate the estimation of heterogeneous treatment effects as a variable selection problem.
-Specifically, the paper develops a Squared Loss Support Vector Machine (L2-SVM) with separate LASSO constraints over the pre-treatment and causal heterogeneity parameters, such that the causal heterogeneity variables of interest are separated from the rest of the variables. 
+This paper studies treatment effect heterogeneity in randomized evaluation studies under the potential outcomes framework.
+For each unit $i$ and treatment level $t$, let $Y_i(t)$ denote the potential outcome under treatment $t$, with $t=0$ representing the control condition.
+The individual-level causal effect of treatment $t$ is defined as $Y_i(t) - Y_i(0)$.
 
-The proposed model is grounded within the potential outcomes framework for causal inference.
-In this framework, the causal effect of treatment $t$ for unit $i$ is defined as $Y_i(t) - Y_i(0)$, where $Y_i$ is the potential outcome for unit $i$ under treatment or control.
-Thus, by leveraging the fact that the L2-SVM is an optimal classifier, the proposed model can estimate \hte\ by predicting the potential outcomes $Y_i(t)$ directly from the fitted model and estimate the conditional treatment effect as the difference between the predicted outcome under treatment status $t$ and under the control condition.
+In order to overcome the methodological challenges of (1) extracting useful information from sparse randomized evaluation study data, (2) identifying sub-groups for whom a treatment is beneficial, and (3) generalizing the results of an experiment to a target population, the authors propose a Squared Loss Support Vector Machine (L2-SVM) with separate regularization for causal heterogeneity variables and other pre-treatment covariates, allowing the method to differentially penalize variables that drive treatment effect heterogeneity versus variables that mainly predict baseline outcomes.
 
-To fit the proposed model the authors' use an estimation algorithm based on a generalized cross-validation (GCV) statistic.
-Because of the structure of the proposed model, the SVM becomes a least squares problem on a subset of the data, therefore the L2-SVM is fitted through a series of iterated LASSO fits.
-Accordingly, the authors' employ an efficient coordinate descent algorithm for the LASSO fits.
+The covariates are partitioned into two blocks: $Z_i$, an $L_Z$-dimensional vector of treatment effect heterogeneity variables, and $V_i$, an $L_V$-dimensional vector of remaining control covariates.
+The binary outcome is transformed to $Y_i^* = 2Y_i - 1 \in \{\pm1\}$ and linked to a latent score $\hat{W_i} \in \mathbb{R}$ via
+\[
+\hat{Y_i} = \operatorname{sgn}(\hat{W_i})\quad\text{and}\quad\hat{W_i} = \hat{\mu} + \hat{\beta}^{\top}Z_i + \hat{\gamma}^{\top}V_i,
+\]
+where $\hat{\mu}$ is an intercept, $\hat{\beta}$ collects coefficients on $Z_i$, and $\hat{\gamma}$ collects coefficients on $V_i$.
+Thus, the causal heterogeneity variables of interest $Z_i$ are explicitly separated from the rest of the covariates $V_i$. 
 
-For modeling, the authors transform the binary outcome to $Y_i^* = 2Y_i - 1 \in \{\pm1\}$ and then relate the estimated binary outcome $\hat{Y_i} \in \{\pm1\}$ to the estimated latent variable $\hat{W_i} \in \mathbb{R}$, where \[\hat{Y_i} = \operatorname{sgn}(\hat{W_i})\quad\text{and}\quad\hat{W_i} = \hat{\mu} + \hat{\beta}^{\top}Z_i + \hat{\gamma}^{\top}V_i,\] here $Z_i$ is an $L_Z$ dimensional vector of treatment effect heterogeneity variables and $V_i$ is an $L_V$ dimensional vector containing the remaining control covariates.
-Thus, the causal heterogeneity variables of interest, $Z_i$, are separated from the rest of the variables.
-
-In order to estimate the parameters $(\beta, \gamma)$ the authors adapt a support vector machine (SVM) classifier and place separate LASSO constraints over each set of coefficients. 
-Specifically, the estimates are given by the objective function \[(\hat{\beta}, \hat{\gamma}) = \underset{(\beta, \gamma)}{\text{arg min}} \sum_{i=1}^{n} w_i \cdot |1-Y_i^* \cdot(\mu + \beta^{\top}Z_i + \gamma^{\top}V_i)|^2_{+} + \lambda_Z \sum_{j=1}^{L_Z} |\beta_j| + \lambda_V \sum_{j=1}^{L_V}|\gamma_j|,\] where $\lambda_Z$ and $\lambda_V$ are pre-determined separate LASSO penalty parameters and $w_i$ is an optional sampling weight for generalizing results from a sample to a target population.
+To estimate the parameters $(\beta, \gamma)$ the authors adapt a support vector machine (SVM) classifier and place separate LASSO constraints over each set of coefficients. 
+Specifically, the estimates are given by the objective function
+\[
+(\hat{\beta}, \hat{\gamma}) = \underset{(\beta, \gamma)}{\text{arg min}} \sum_{i=1}^{n} w_i \cdot |1-Y_i^* \cdot(\mu + \beta^{\top}Z_i + \gamma^{\top}V_i)|^2_{+} + \lambda_Z \sum_{j=1}^{L_Z} |\beta_j| + \lambda_V \sum_{j=1}^{L_V}|\gamma_j|,
+\]
+where $\lambda_Z$ and $\lambda_V$ are pre-determined separate LASSO penalty parameters and $w_i$ is an optional sampling weight for generalizing results from a sample to a target population.
 Here, the authors formulate the SVM as a penalized squared hinge-loss objective function (L2-SVM) where the hinge-loss is defined as $|x|_+ \equiv \max(x,0)$.
 
-%By leveraging the fact that the L2-SVM is an optimal classifier, the proposed model can estimate \hte\ by predicting the potential outcomes $Y_i(t)$ directly from the fitted model and estimate the conditional treatment effect (CTE) as the difference between the predicted outcome under treatment status $t$ and under the control condition: $\hat{\delta}(t; \tilde{X}_i) = \frac{1}{2}(\hat{Y}_i(t) - \hat{Y}_i(0))$.
-%Further, the model can estimate the conditional average treatment effect (CATE), which is defined as $\tau(t; \tilde{x}) = \mathbb{E}(Y_i(t) - Y_i(0)\,|\,\tilde{X}_i = \tilde{x})$, for a given covariate profile $\tilde{x}$.
-%Specifically, the authors define $\hat{W}_i^*(t)$ as the predicted $\hat{W}_i^*(t)$ values truncated at positive and negative one.
-%Then the CATE is estimated as the difference in truncated values of the predicted outcome variables, $\hat{\tau}(t; \tilde{X}_i) = \frac{1}{2}(\hat{W}_i^*(t) - \hat{W}_i^*(0))$. 
-%While not a true difference in probabilities, the authors argue that $\hat{\tau}(t; \tilde{X}_i)$ provides a reasonable approximation of the CATE. 
+Using the fitted L2-SVM, the model estimates \hte\ via plug-in predictions of potential outcomes. The conditional treatment effect (CTE) is $\hat{\delta}(t; \tilde{X}_i) = \frac{1}{2}(\hat{Y}_i(t) - \hat{Y}_i(0))$.
+And for covariate profile $\tilde{x}$, the conditional average treatment effect (CATE) is $\tau(t; \tilde{x}) = \mathbb{E}(Y_i(t) - Y_i(0)\,|\,\tilde{X}_i = \tilde{x})$.
+The authors approximate it by truncating the predicted scores to obtain $\hat{W}_i^*(t)$ and defining $\hat{\tau}(t; \tilde{X}_i) = \frac{1}{2}(\hat{W}_i^*(t) - \hat{W}_i^*(0))$.
+Although $\hat{\tau}(t; \tilde{X}_i)$ is not a literal difference in probabilities, it is argued to be a reasonable CATE approximation.
+
+In the GOTV experiment, there are many treatment levels (i.e., different combinations of mobilization strategies), so $Z_i$ is taken as a vector of treatment indicators, while $V_i$ collects pre-treatment covariates for adjustment such as demographics and prior voting history. 
+Then sparsity in $\beta$ can identify the most efficacious treatment condition among many alternative treatments.
+
+In the job training application, the primary goal is to characterize effect heterogeneity across covariate profiles. 
+Accordingly, $Z_i$ is constructed from treatment-covariate interaction terms so that $\beta$ captures which covariates moderate the treatment effect, whereas $V_i$ contains the corresponding pre-treatment effects that improve prediction of baseline outcomes.
 
 \subsection{Estimating algorithm}
 
 This paper introduces an estimation algorithm for the L2-SVM with separate LASSO penalties on treatment and non-treatment covariates. 
 For fixed tuning parameters $(\lambda_Z,\lambda_V)$, the covariates are first rescaled, and the model is then fitted iteratively by focusing on the set of ``active'' observations whose hinge loss is positive. 
 At each iteration, the covariates and the transformed outcome are centered within the current active set, the LASSO coefficients are updated using a least squares criterion with $\ell_1$ penalties, and the fitted values and the active set are recomputed. 
-This procedure is repeated until the coefficients converge, yielding the final estimates $(\mu,\beta,\gamma)$ and scores $W_i$. See Algorithm~\ref{alg:fit-svm-lasso}.
+This procedure is repeated until the coefficients converge, yielding the final estimates $(\mu,\beta,\gamma)$ and scores $W_i$.
+See Algorithm~\ref{alg:fit-svm-lasso}.
 
 \input{algosvm}
 
-Selection of the tuning parameters $(\lambda_Z,\lambda_V)$ is carried out using a generalized cross-validation (GCV) statistic based on the squared hinge loss over the active set and the effective degrees of freedom (the number of nonzero coefficients). 
-Starting from a large value of the penalty on causal heterogeneity covariates, a coarse grid search over $\lambda_V$ is performed and the value that minimizes the GCV criterion is selected.
-Given this value, a grid search over $\lambda_Z$ is conducted in the same way. 
+Selection of the tuning parameters $(\lambda_Z,\lambda_V)$ is carried out using a generalized cross-validation (GCV) statistic that trades off in-sample fit on the active set and model complexity. 
+For any candidate pair $(\lambda_Z,\lambda_V)$, we first fit the L2-SVM using Algorithm~\ref{alg:fit-svm-lasso} and obtain fitted scores and coefficients. 
+The GCV value is then computed as
+\[
+V\left(\lambda_Z, \lambda_V\right)=\frac{1}{n(1-l / a)^2} \sum_{i \in \mathcal{A}}\left(Y_i^*-\widehat{W}_i\right)^2=\frac{1}{n(1-l / a)^2} \sum_{i=1}^n\left|1-Y_i^* \widehat{W}_i\right|_{+}^2 .
+\]
+where $\ell=\|\beta\|_0+\|\gamma\|_0$ and $a=|A|$.
+Starting from a large value of the penalty on causal heterogeneity covariates, a coarse grid search over $\lambda_V$ is performed with $\lambda_Z$ fixed, and the value that minimizes the GCV criterion is selected; given this $\lambda_V$, a grid search over $\lambda_Z$ is conducted in the same way. 
 These one-dimensional line searches in $\lambda_V$ and $\lambda_Z$ are alternated until convergence, and the search is then refined around the converged values. 
-The resulting $(\hat\lambda_Z,\hat\lambda_V)$ are used to
-obtain the final L2-SVM fit. See Algorithm~\ref{alg:gcv-tuning}.
+The resulting $(\hat\lambda_Z,\hat\lambda_V)$ are used to obtain the final L2-SVM fit.
+See Algorithm~\ref{alg:gcv-tuning}.
 
 \input{algogcv}
 
 \section{Reproducing Results}
 
-In this section, we reproduce the main findings from the paper by applying the \texttt{FindIt} method to the two datasets analyzed in the original study: the GerberGreen dataset and the LaLonde dataset. We use the \texttt{FindIt} R package to implement the L2-SVM with double LASSO approach and compare our results with those reported in the paper.
+In this section, we reproduce the main findings from the paper by applying the \texttt{FindIt} method to the two datasets analyzed in the original study: the \texttt{GerberGreen} dataset and the \texttt{LaLonde} dataset. We use the \texttt{FindIt} R package to implement the L2-SVM with double LASSO approach and compare our results with those reported in the paper.
 
 \subsection{GerberGreen Factorial Design}
 
-Following the paper's approach, we apply the \texttt{FindIt} method to the GerberGreen dataset using the factorial design specification. The paper uses a factorial treatment design with four treatment factors: \texttt{persngrp} (personal visit), \texttt{phnscrpt} (phone script), \texttt{mailings} (number of mailings), and \texttt{appeal} (appeal type). We implement this using the \texttt{treat.type = "multiple"} specification with \texttt{nway = 4} to generate all treatment-treatment interactions.
+Following the paper's approach, we apply the \texttt{FindIt} method to the \texttt{GerberGreen} dataset using the factorial design specification. The paper uses a factorial treatment design with four treatment factors: \texttt{persngrp} (personal visit), \texttt{phnscrpt} (phone script), \texttt{mailings} (number of mailings), and \texttt{appeal} (appeal type). We implement this using the \texttt{treat.type = "multiple"} specification with \texttt{nway = 4} to generate all treatment-treatment interactions.
 
 We fit the \texttt{FindIt} model using the exact syntax from the \texttt{FindIt} package documentation (Example 2):
 \begin{align}
@@ -172,7 +187,7 @@ The paper reports identifying 15 nonzero treatment effect combinations out of 19
 
 \subsection{LaLonde Treatment-Covariate Interactions}
 
-For the LaLonde dataset, we apply the \texttt{FindIt} method with the single treatment type specification to identify treatment-covariate interactions. The paper uses this dataset to identify subgroups of workers for whom the job training program is beneficial.
+For the \texttt{LaLonde} dataset, we apply the \texttt{FindIt} method with the single treatment type specification to identify treatment-covariate interactions. The paper uses this dataset to identify subgroups of workers for whom the job training program is beneficial.
 
 We fit the \texttt{FindIt} model with treatment-covariate interactions:
 \begin{align}
@@ -191,9 +206,9 @@ The paper also identifies substantial heterogeneity in treatment effects across 
 
 \subsection{Discussion}
 
-Our reproduction of the paper's results demonstrates both successes and challenges in applying the \texttt{FindIt} method. For the GerberGreen dataset, we successfully reproduce the key qualitative finding that personal visits are the most effective mobilization strategy, using the factorial design approach that matches the paper's methodology. The estimated treatment effects are of similar magnitude to those reported in the paper, confirming the robustness of this finding.
+Our reproduction of the paper's results demonstrates both successes and challenges in applying the \texttt{FindIt} method. For the \texttt{GerberGreen} dataset, we successfully reproduce the key qualitative finding that personal visits are the most effective mobilization strategy, using the factorial design approach that matches the paper's methodology. The estimated treatment effects are of similar magnitude to those reported in the paper, confirming the robustness of this finding.
 
-For the LaLonde dataset, we obtain an ATE estimate that is qualitatively consistent with the paper's findings (positive effect of job training), though quantitatively somewhat smaller. The difference likely reflects our use of a simplified covariate specification compared to the paper's more comprehensive model with 44 covariates. This highlights the importance of covariate selection in identifying treatment effect heterogeneity.
+For the \texttt{LaLonde} dataset, we obtain an ATE estimate that is qualitatively consistent with the paper's findings (positive effect of job training), though quantitatively somewhat smaller. The difference likely reflects our use of a simplified covariate specification compared to the paper's more comprehensive model with 44 covariates. This highlights the importance of covariate selection in identifying treatment effect heterogeneity.
 
 Overall, our reproduction confirms that the \texttt{FindIt} method can successfully identify treatment effects and treatment-covariate interactions in real-world datasets. The method's performance depends on appropriate specification of the treatment structure (factorial design for multiple treatments, single treatment with interactions for heterogeneous effects) and careful selection of tuning parameters.
 
@@ -228,11 +243,11 @@ However, the CATE for groups of high earning Hispanic workers was as low as -21 
 
 \section{Conclusion}
 
-This project has successfully reproduced the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the GerberGreen and LaLonde datasets using the \texttt{FindIt} R package, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
+This project has successfully reproduced the methods from Imai and Ratkovic (2013) for estimating treatment effect heterogeneity in randomized program evaluation. Through our analysis of the \texttt{GerberGreen} and \texttt{LaLonde} datasets using the \texttt{FindIt} R package, we have demonstrated the practical application of the L2-SVM with double LASSO approach for identifying heterogeneous treatment effects.
 
-Our key findings from reproducing the paper's results include: (1) the successful implementation of the factorial design analysis for the GerberGreen dataset, which confirms that personal visits are the most effective mobilization strategy, with estimated effects (ranging from 2.45 to 3.26 percentage points) consistent with the paper's findings (2.69 percentage points); (2) the reproduction of the LaLonde analysis, obtaining an ATE estimate of 6.27 percentage points that is qualitatively consistent with the paper's estimate of 7.61 percentage points, demonstrating the robustness of the method's findings despite differences in covariate specification; and (3) the identification of 20 nonzero treatment coefficients in GerberGreen and 8 nonzero coefficients in LaLonde, showing that the method successfully identifies treatment effects and interactions in real-world datasets.
+Our key findings from reproducing the paper's results include: (1) the successful implementation of the factorial design analysis for the \texttt{GerberGreen} dataset, which confirms that personal visits are the most effective mobilization strategy, with estimated effects (ranging from 2.45 to 3.26 percentage points) consistent with the paper's findings (2.69 percentage points); (2) the reproduction of the \texttt{LaLonde} analysis, obtaining an ATE estimate of 6.27 percentage points that is qualitatively consistent with the paper's estimate of 7.61 percentage points, demonstrating the robustness of the method's findings despite differences in covariate specification; and (3) the identification of 20 nonzero treatment coefficients in \texttt{GerberGreen} and 8 nonzero coefficients in \texttt{LaLonde}, showing that the method successfully identifies treatment effects and interactions in real-world datasets.
 
-The reproduction results demonstrate that the \texttt{FindIt} method successfully identifies treatment effects in real-world datasets when appropriately specified. The factorial design approach with \texttt{treat.type = "multiple"} works well for the GerberGreen dataset with multiple treatment factors, generating all treatment-treatment interactions and identifying the most effective treatment combinations. The single treatment type with interactions approach captures average treatment effects in the LaLonde dataset, though our simplified covariate specification (3 covariates versus the paper's 44 covariates) may not capture the full heterogeneity identified in the original study. This highlights the importance of comprehensive covariate selection in identifying treatment effect heterogeneity.
+The reproduction results demonstrate that the \texttt{FindIt} method successfully identifies treatment effects in real-world datasets when appropriately specified. The factorial design approach with \texttt{treat.type = "multiple"} works well for the \texttt{GerberGreen} dataset with multiple treatment factors, generating all treatment-treatment interactions and identifying the most effective treatment combinations. The single treatment type with interactions approach captures average treatment effects in the \texttt{LaLonde} dataset, though our simplified covariate specification (3 covariates versus the paper's 44 covariates) may not capture the full heterogeneity identified in the original study. This highlights the importance of comprehensive covariate selection in identifying treatment effect heterogeneity.
 
 As a supplementary analysis, we also conducted a simulation study with homogeneous treatment effects (presented in the Appendix), which reveals that the method's performance depends critically on matching the specification to the data structure. This finding emphasizes the importance of understanding the underlying assumptions of the method and choosing appropriate specifications based on the data characteristics.
 
@@ -241,6 +256,7 @@ Future research directions include: exploring more comprehensive covariate speci
 % Bibliography ----------------------
 \newpage
 \bibliographystyle{plain}
+\addcontentsline{toc}{section}{References}
 \nocite{ai}
 \bibliography{../bibliography}
 

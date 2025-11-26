@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2025 11:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 NOV 2025 15:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -560,13 +560,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.127 
+l.136 
        [2] (./algosvm.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 3.
-) (./algogcv.tex
+)
 
-[3])
+[3] (./algogcv.tex)
 
 [4]
 
@@ -576,26 +576,22 @@ put line 3.
 
 [7]
 
-[8]
-
-LaTeX Warning: Citation `ai' undefined on input line 244.
-
-(./Report.bbl)
+[8] (./Report.bbl)
 
 [9] (./tbls/GerberGreentbl.tex)
-<figs/GerberGreenTreatments.png, id=276, 6524.375pt x 3513.125pt>
+<figs/GerberGreenTreatments.png, id=274, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenTreatments.png Graphic file (type png)
 <use figs/GerberGreenTreatments.png>
-Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 274
+Package pdftex.def Info: figs/GerberGreenTreatments.png  used on input line 290
 .
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
 
 
 [10]
-<figs/GerberGreenControls.png, id=283, 6524.375pt x 3513.125pt>
+<figs/GerberGreenControls.png, id=281, 6524.375pt x 3513.125pt>
 File: figs/GerberGreenControls.png Graphic file (type png)
 <use figs/GerberGreenControls.png>
-Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 281.
+Package pdftex.def Info: figs/GerberGreenControls.png  used on input line 297.
 (pdftex.def)             Requested size: 469.75502pt x 252.91264pt.
  (./tbls/GerberGreenTreatmentInteraction.tex
 
@@ -615,15 +611,15 @@ Overfull \vbox (4.01053pt too high) has occurred while \output is active []
 [12] (./tbls/GerberGreenControlInteraction.tex)
 
 [13] (./tbls/LaLondetbl.tex)
-<figs/LaLondeTreatments.png, id=303, 3513.125pt x 2007.5pt>
+<figs/LaLondeTreatments.png, id=301, 3513.125pt x 2007.5pt>
 File: figs/LaLondeTreatments.png Graphic file (type png)
 <use figs/LaLondeTreatments.png>
-Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 317.
+Package pdftex.def Info: figs/LaLondeTreatments.png  used on input line 333.
 (pdftex.def)             Requested size: 234.8775pt x 134.19855pt.
-<figs/LaLondeControls.png, id=304, 6524.375pt x 4516.875pt>
+<figs/LaLondeControls.png, id=302, 6524.375pt x 4516.875pt>
 File: figs/LaLondeControls.png Graphic file (type png)
 <use figs/LaLondeControls.png>
-Package pdftex.def Info: figs/LaLondeControls.png  used on input line 324.
+Package pdftex.def Info: figs/LaLondeControls.png  used on input line 340.
 (pdftex.def)             Requested size: 469.75502pt x 325.1734pt.
 
 
@@ -633,7 +629,7 @@ Package pdftex.def Info: figs/LaLondeControls.png  used on input line 324.
 c} <./figs/LaLondeControls.png>]
 
 [16]
-Overfull \hbox (2.27525pt too wide) in paragraph at lines 389--390
+Overfull \hbox (2.27525pt too wide) in paragraph at lines 405--406
 []\OT1/cmr/bx/n/10.95 DR(largest)\OT1/cmr/m/n/10.95 : In-di-ca-tor that the es-
 ti-mated largest ef-fect (among nonzero co-ef-fi-cients) matches
  []
@@ -649,24 +645,17 @@ ti-mated largest ef-fect (among nonzero co-ef-fi-cients) matches
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: 5768F5B3DDA2D920DD0A94B4F073A45E;4348.
+(rerunfilecheck)             Checksum: A407DBA2E3057AFB122D3D53DBB78C04;4442.
  ) 
 Here is how much of TeX's memory you used:
- 12309 strings out of 473190
- 188219 string characters out of 5715801
- 649491 words of memory out of 5000000
+ 12303 strings out of 473190
+ 188141 string characters out of 5715801
+ 649515 words of memory out of 5000000
  35241 multiletter control sequences out of 15000+600000
  570898 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,14n,79p,915b,634s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,15n,79p,960b,626s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
@@ -676,26 +665,25 @@ sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb>
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
 /local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/loc
-al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/t
-exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texl
-ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
-/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/
-fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Report.pdf (21 pages, 1849150 bytes).
+ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texli
+ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/202
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on Report.pdf (21 pages, 1840779 bytes).
 PDF statistics:
- 482 PDF objects out of 1000 (max. 8388607)
- 397 compressed objects within 4 object streams
- 121 named destinations out of 1000 (max. 500000)
- 197 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 392 compressed objects within 4 object streams
+ 115 named destinations out of 1000 (max. 500000)
+ 205 words of extra memory for PDF output out of 10000 (max. 10000000)
 

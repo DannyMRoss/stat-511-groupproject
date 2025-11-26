@@ -1,22 +1,18 @@
 \begin{algorithm}[h]
 \scriptsize
-\caption{\footnotesize Fit L2-SVM with Double LASSO for Given $(\lambda_Z,\lambda_V)$}
+\caption{Fit L2-SVM with Double LASSO for Given $(\lambda_Z,\lambda_V)$}
 \label{alg:fit-svm-lasso}
 \begin{algorithmic}[1]
 \scriptsize
-\REQUIRE Observations $\{(Y_i, Z_i, V_i, \omega_i)\}_{i=1}^N$, weights $\omega_i$, tuning parameters $(\lambda_Z,\lambda_V)$
+\REQUIRE Observations $\{(Y_i, Z_i, V_i)\}_{i=1}^N$, weights $w_i$, tuning parameters $(\lambda_Z,\lambda_V)$
 \ENSURE Estimated $(\mu,\beta,\gamma)$ and scores $W_i$
 \STATE Define $Y_i^* \gets 2Y_i - 1$ for all $i$.
-
-\vspace{1\baselineskip}
 
 \COMMENT{Rescaling the covariates:}
 \STATE Rescale covariates in $V_i$ by standardizing all pre-treatment main-effect variables.
 \STATE Recompute any higher-order terms and covariate interactions in $V_i$ using the standardized covariates.
 \STATE Keep treatment indicator variables (treatment dummies) in $Z_i$ unstandardized.
 \STATE Construct treatment-covariate interactions in $Z_i$ as the product of the unstandardized treatment indicator and the standardized covariate.
-
-\vspace{1\baselineskip}
 
 \COMMENT{Iterative fitting given $(\lambda_Z,\lambda_V)$:}
 \STATE Define the reparameterized coefficients and covariates:
@@ -39,8 +35,6 @@
 \STATE Recover the original coefficients:
        $\hat\beta = \beta^{(k)} / \lambda_Z$ and
        $\hat\gamma = \gamma^{(k)} / \lambda_V$.
-
-\vspace{1\baselineskip}
 
 \STATE \textbf{return} $(\mu,\beta,\gamma,\{W_i\}_{i=1}^N)$.
 \end{algorithmic}
