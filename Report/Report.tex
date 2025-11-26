@@ -154,7 +154,7 @@ Selection of the tuning parameters $(\lambda_Z,\lambda_V)$ is carried out using 
 For any candidate pair $(\lambda_Z,\lambda_V)$, we first fit the L2-SVM using Algorithm~\ref{alg:fit-svm-lasso} and obtain fitted scores and coefficients. 
 The GCV value is then computed as
 \[
-V\left(\lambda_Z, \lambda_V\right)=\frac{1}{n(1-l / a)^2} \sum_{i \in \mathcal{A}}\left(Y_i^*-\widehat{W}_i\right)^2=\frac{1}{n(1-l / a)^2} \sum_{i=1}^n\left|1-Y_i^* \widehat{W}_i\right|_{+}^2 .
+V\left(\lambda_Z, \lambda_V\right)=\frac{1}{n(1-l / a)^2} \sum_{i \in \mathcal{A}}\left(Y_i^*-\widehat{W}_i\right)^2=\frac{1}{n(1-l / a)^2} \sum_{i=1}^n\left|1-Y_i^* \widehat{W}_i\right|_{+}^2,
 \]
 where $\ell=\|\beta\|_0+\|\gamma\|_0$ and $a=|A|$.
 Starting from a large value of the penalty on causal heterogeneity covariates, a coarse grid search over $\lambda_V$ is performed with $\lambda_Z$ fixed, and the value that minimizes the GCV criterion is selected; given this $\lambda_V$, a grid search over $\lambda_Z$ is conducted in the same way. 
@@ -166,18 +166,19 @@ See Algorithm~\ref{alg:gcv-tuning}.
 
 \section{Reproducing Results}
 
-In this section, we reproduce the main findings from the paper by applying the \texttt{FindIt} method to the two datasets analyzed in the original study: the \texttt{GerberGreen} dataset and the \texttt{LaLonde} dataset. We use the \texttt{FindIt} R package to implement the L2-SVM with double LASSO approach and compare our results with those reported in the paper.
+In this section, we reproduce the main findings from the paper by applying the \texttt{FindIt} method to the two datasets analyzed in the original study: \texttt{GerberGreen} and \texttt{LaLonde}. We use the \texttt{FindIt} \texttt{R} package to implement the L2-SVM with double LASSO approach and compare our results with those reported in the paper.
 
 \subsection{GerberGreen Factorial Design}
 
-Following the paper's approach, we apply the \texttt{FindIt} method to the \texttt{GerberGreen} dataset using the factorial design specification. The paper uses a factorial treatment design with four treatment factors: \texttt{persngrp} (personal visit), \texttt{phnscrpt} (phone script), \texttt{mailings} (number of mailings), and \texttt{appeal} (appeal type). We implement this using the \texttt{treat.type = "multiple"} specification with \texttt{nway = 4} to generate all treatment-treatment interactions.
+First, we apply the \texttt{FindIt} method to the \texttt{GerberGreen} dataset using the factorial design specification.
+We implement this using the \texttt{treat.type = "multiple"} option with \texttt{nway = 4} to generate all two-way, three-way, and four-way treatment-treatment interactions between the four treatment factors: \texttt{persngrp} (personal visit), \texttt{phnscrpt} (phone script), \texttt{mailings} (number of mailings), and \texttt{appeal} (appeal type). We also included main effects for the pre-treatment covariates of \texttt{age}, \texttt{majorpty}, \texttt{vote96.1}, and \texttt{vote96.0}.\footnote{See Appendix for more details on these covariates.}
 
-We fit the \texttt{FindIt} model using the exact syntax from the \texttt{FindIt} package documentation (Example 2):
+We fit the \texttt{FindIt} model using the syntax from the \texttt{FindIt} package documentation:
 \begin{align}
-    \text{model.treat} &: \quad \texttt{voted98} \sim \texttt{persngrp} + \texttt{phnscrpt} + \texttt{mailings} + \texttt{appeal} \\
-    \text{model.main} &: \quad \sim \texttt{age} + \texttt{majorpty} + \texttt{vote96.1} + \texttt{vote96.0}
+    \text{model.treat} &: \quad \texttt{voted98} \sim \texttt{persngrp} + \texttt{phnscrpt} + \texttt{mailings} + \texttt{appeal} \notag \\
+    \text{model.main} &: \quad \sim \texttt{age} + \texttt{majorpty} + \texttt{vote96.1} + \texttt{vote96.0} \notag
 \end{align}
-with \texttt{nway = 4} to generate all two-way, three-way, and four-way interactions among the treatment factors. We use the tuning parameters $\lambda_Z = -15.000$ and $\lambda_V = -6.237$ as provided in the \texttt{FindIt} package documentation example.
+From the GCV-based selection, the tuning parameters were set to $\lambda_Z = -15.000$ and $\lambda_V = -6.237$.
 
 Our analysis identifies 20 nonzero treatment coefficients, including main effects and interaction terms. The top treatment combination identified by the model is \texttt{persngrp = 1}, \texttt{phnscrpt = 0}, \texttt{mailings = 0}, \texttt{appeal = 3}, with an estimated treatment effect of 0.0326 (3.26 percentage points). This result is consistent with the paper's key finding that personal visits (\texttt{persngrp = 1}) are the most effective mobilization strategy.
 
@@ -191,18 +192,18 @@ For the \texttt{LaLonde} dataset, we apply the \texttt{FindIt} method with the s
 
 We fit the \texttt{FindIt} model with treatment-covariate interactions:
 \begin{align}
-    \text{model.treat} &: \quad \texttt{outcome} \sim \texttt{treat} \\
-    \text{model.main}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} & \quad \text{model.int}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black}
+    \text{model.treat} &: \quad \texttt{outcome} \sim \texttt{treat} \notag \\
+    \text{model.main}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} & \quad \text{model.int}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} \notag
 \end{align}
-where \texttt{treat} is the binary treatment indicator (job training program), and we allow for interactions between treatment and the pre-treatment covariates. We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to choose optimal tuning parameters via generalized cross-validation.
+where \texttt{treat} is the binary treatment indicator (job training program), and we allow for interactions between treatment and the pre-treatment covariates. We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to choose optimal tuning parameters by the GCV algorithm, which selected $\lambda_Z = -4.9175$ and $\lambda_V = -2.9$. 
 
 Our analysis yields an average treatment effect (ATE) estimate of 0.0627 (6.27 percentage points), indicating that workers who received the job training were 6.27 percentage points more likely to have increased earnings from 1975 to 1978 compared to those who did not receive the treatment. The model identifies 8 nonzero coefficients, including main effects and treatment-covariate interaction terms.
 
-The optimal tuning parameters selected by the method are $\lambda_Z = -4.9175$ and $\lambda_V = -2.9$. The predicted treatment effects are relatively homogeneous across units (ranging from 0.0627 to 0.0629), suggesting that in this particular sample, the treatment effects do not vary substantially across different covariate profiles.
+The predicted treatment effects are relatively homogeneous across units (ranging from 0.0627 to 0.0629), suggesting that in this particular sample, the treatment effects do not vary substantially across different covariate profiles.
 
 The paper reports an ATE estimate of 7.61 percentage points for the NSW sample, which is somewhat higher than our estimate of 6.27 percentage points. This difference may be due to several factors: (1) differences in the exact covariate specification (the paper uses 44 covariates including squared terms and interactions, while we use a simplified specification with 3 main covariates); (2) differences in lambda selection; or (3) minor differences in data preprocessing. However, both estimates are positive and of similar magnitude, confirming the paper's finding that the job training program has a positive average effect.
 
-The paper also identifies substantial heterogeneity in treatment effects across subgroups (e.g., CATE as high as 53 percentage points for low education, non-Hispanic, high earning workers, and as low as -21 percentage points for high earning Hispanic workers). Our simplified analysis with fewer covariates may not capture this full heterogeneity, which explains why our predicted effects are more homogeneous.
+The paper also identifies substantial heterogeneity in treatment effects across subgroups (e.g., CATE as high as 53 percentage points for low education, non-Hispanic, high earning workers, and as low as -21 percentage points for high earning Hispanic workers). Our simplified analysis with fewer covariates does not capture this full heterogeneity, which explains why our predicted effects are more homogeneous.
 
 \subsection{Discussion}
 
@@ -402,15 +403,15 @@ Following the paper's evaluation framework, we assess the method's performance u
 
 Specifically, for each replication $r$:
 \begin{itemize}
-    \item \textbf{DR(largest)}: Indicator that the estimated largest effect (among nonzero coefficients) matches the true largest effect (treatment 1) with correct sign.
-    \item \textbf{DR(top 3)}: Indicator that at least 2 of the top 3 estimated effects match the true top 3 effects (treatments 1, 2, 3) with correct signs.
-    \item \textbf{FDR(largest)}: $1 - \text{DR(largest)}$ when at least one treatment coefficient is nonzero.
-    \item \textbf{FDR(top 3)}: $1 - \text{DR(top 3)}$ when at least one treatment coefficient is nonzero.
+    \item \textbf{DR (largest)}: Indicator that the estimated largest effect (among nonzero coefficients) matches the true largest effect (treatment 1) with correct sign.
+    \item \textbf{DR (top 3)}: Indicator that at least 2 of the top 3 estimated effects match the true top 3 effects (treatments 1, 2, 3) with correct signs.
+    \item \textbf{FDR (largest)}: $1 - \text{DR (largest)}$ when at least one treatment coefficient is nonzero.
+    \item \textbf{FDR (top 3)}: $1 - \text{DR (top 3)}$ when at least one treatment coefficient is nonzero.
 \end{itemize}
 
 \subsubsection{Simulation Results}
 
-Table~\ref{tab:simulation_results} presents the simulation results across the three sample sizes. The results show that the \texttt{FindIt} method achieves low discovery rates across all sample sizes, with DR(largest) ranging from 0.01 to 0.02 and DR(top 3) ranging from 0.01 to 0.02.
+Table~\ref{tab:simulation_results} presents the simulation results across the three sample sizes. The results show that the \texttt{FindIt} method achieves low discovery rates across all sample sizes, with DR (largest) ranging from 0.01 to 0.02 and DR (top 3) ranging from 0.01 to 0.02.
 
 \begin{table}[H]
 \centering
@@ -418,7 +419,7 @@ Table~\ref{tab:simulation_results} presents the simulation results across the th
 \label{tab:simulation_results}
 \begin{tabular}{lcccc}
 \toprule
-Sample Size & DR(largest) & FDR(largest) & DR(top 3) & FDR(top 3) \\
+Sample Size & DR (largest) & FDR (largest) & DR (top 3) & FDR (top 3) \\
 \midrule
 $n = 500$   & 0.010 & 0.958 & 0.020 & 0.917 \\
 $n = 1000$  & 0.010 & 0.955 & 0.020 & 0.909 \\
@@ -439,7 +440,7 @@ First, the \texttt{FindIt} method with \texttt{treat.type = "single"} is designe
 
 Specifically, the single treatment type specification models treatment effects through treatment-covariate interactions:
 \begin{align}
-    W_i = \mu + \beta_0 \cdot \text{treatment}_i + \sum_{j=1}^{L_V} \beta_j \cdot (\text{treatment}_i \times V_{ij}) + \sum_{j=1}^{L_V} \gamma_j V_{ij}
+    W_i = \mu + \beta_0 \cdot \text{treatment}_i + \sum_{j=1}^{L_V} \beta_j \cdot (\text{treatment}_i \times V_{ij}) + \sum_{j=1}^{L_V} \gamma_j V_{ij} \notag
 \end{align}
 where the main treatment effect $\beta_0$ may be shrunk to zero by the LASSO penalty, leaving only interaction terms. In our simulation, where treatment effects are homogeneous (do not depend on covariates), these interaction terms may not capture the true treatment effects effectively.
 
@@ -462,13 +463,6 @@ The paper's simulation results (Figure 1) show that the method achieves higher d
 Our simulation study demonstrates the challenges of applying the \texttt{FindIt} method to scenarios with homogeneous treatment effects when using the single treatment type specification. While the method is designed for heterogeneous effects, our simulation shows that it struggles to identify treatments with homogeneous but substantial effects.
 
 These results highlight the importance of matching the method's assumptions to the data structure. For scenarios with homogeneous treatment effects, alternative methods or different \texttt{FindIt} specifications (such as multiple treatment type with factorial designs) may be more appropriate.
-
-Future work could explore:
-\begin{itemize}
-    \item Using \texttt{treat.type = "multiple"} with factorial treatment designs to better match the paper's approach.
-    \item Adjusting the evaluation metrics to account for the method's focus on heterogeneous effects.
-    \item Comparing performance across different simulation setups to better understand the method's strengths and limitations.
-\end{itemize}
 
 \end{document}
 
