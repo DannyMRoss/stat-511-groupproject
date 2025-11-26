@@ -180,9 +180,8 @@ We fit the \texttt{FindIt} model using the syntax from the \texttt{FindIt} packa
 \end{align}
 From the GCV-based selection, the tuning parameters were set to $\lambda_Z = -15.000$ and $\lambda_V = -6.237$.
 
-Our analysis identifies 20 nonzero treatment coefficients, including main effects and interaction terms. The top treatment combination identified by the model is \texttt{persngrp = 1}, \texttt{phnscrpt = 0}, \texttt{mailings = 0}, \texttt{appeal = 3}, with an estimated treatment effect of 0.0326 (3.26 percentage points). This result is consistent with the paper's key finding that personal visits (\texttt{persngrp = 1}) are the most effective mobilization strategy.
-
-The top five treatment combinations all involve personal visits (\texttt{persngrp = 1}) with no phone calls (\texttt{phnscrpt = 0}), confirming the paper's conclusion that canvassing in person is the most effective get-out-the-vote technique. The estimated effects range from 0.0245 to 0.0326 percentage points, which are similar in magnitude to the paper's reported effects (e.g., 2.69 percentage points for personal visits compared to baseline).
+Our analysis identifies 20 nonzero treatment coefficients, including main effects and interaction terms. The top treatment combination identified by the model is \texttt{persngrp = 1}, \texttt{phnscrpt = 0}, \texttt{mailings = 0}, \texttt{appeal = 3}, with an estimated treatment effect of 0.0326 (3.26 percentage points).
+Further, the top five treatment combinations all involve personal visits (\texttt{persngrp = 1}) with no phone calls (\texttt{phnscrpt = 0}), confirming the paper's conclusion that canvassing in person is the most effective get-out-the-vote technique. The estimated effects range from 2.45 to 3.26 percentage points, which are similar in magnitude to the paper's reported effects (e.g., 2.69 percentage points for personal visits compared to the baseline).
 
 The paper reports identifying 15 nonzero treatment effect combinations out of 192 possible combinations. Our analysis identifies 20 nonzero coefficients, which may reflect differences in the exact lambda values used or minor differences in the implementation. However, the qualitative findings are consistent: personal visits are identified as the most effective treatment, and the estimated effects are of similar magnitude to those reported in the paper.
 
@@ -195,9 +194,9 @@ We fit the \texttt{FindIt} model with treatment-covariate interactions:
     \text{model.treat} &: \quad \texttt{outcome} \sim \texttt{treat} \notag \\
     \text{model.main}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} & \quad \text{model.int}: \quad \sim \texttt{age} + \texttt{educ} + \texttt{black} \notag
 \end{align}
-where \texttt{treat} is the binary treatment indicator (job training program), and we allow for interactions between treatment and the pre-treatment covariates. We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to choose optimal tuning parameters by the GCV algorithm, which selected $\lambda_Z = -4.9175$ and $\lambda_V = -2.9$. 
+where \texttt{treat} is the binary treatment indicator (job training program), and we allow for interactions between treatment and the pre-treatment controls. We use automatic lambda selection (\texttt{search.lambdas = TRUE}) to choose optimal tuning parameters by the GCV algorithm, which selected $\lambda_Z = -4.9175$ and $\lambda_V = -2.9$. 
 
-Our analysis yields an average treatment effect (ATE) estimate of 0.0627 (6.27 percentage points), indicating that workers who received the job training were 6.27 percentage points more likely to have increased earnings from 1975 to 1978 compared to those who did not receive the treatment. The model identifies 8 nonzero coefficients, including main effects and treatment-covariate interaction terms.
+Our analysis yields an average treatment effect (ATE) estimate of 0.0627, indicating that workers who received the job training were 6.27 percentage points more likely to have increased earnings from 1975 to 1978 compared to those who did not receive the treatment. The model identifies 8 nonzero coefficients, including main effects and treatment-covariate interaction terms.
 
 The predicted treatment effects are relatively homogeneous across units (ranging from 0.0627 to 0.0629), suggesting that in this particular sample, the treatment effects do not vary substantially across different covariate profiles.
 
